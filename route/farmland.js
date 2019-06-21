@@ -172,40 +172,44 @@ router.post('/get-humidity', (err, res) => {
 
 //---------- Feaching national weather APi ---------
 
-//  updating all farmlnds enviromental weather
-// const fetchWeather = () => {
-//   try{
-//   const apiKey = 'da8124feebc16ba503d23184ba5867a6';
-// Farmland.allFarmlands((err, farmlands) => {
-//   if(!farmlands) throw 'There is no farmland in the database';
-//    else{
-// for (let farmland of farmlands) {
-// let lat = farmland.latitude;
-// let long = farmland.longitude;
-// let url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}&units=metric`;
-// request(url, function(err, response, body) {
-//   if(!body) throw 'No data fetched from API';
-//    else {
-//      console.log(body);
-//     const weather = JSON.parse(body);
+ // updating all farmlnds enviromental weather
+const fetchWeather = () => {
+  const 
+      lat = 8.05,
+      long = 37.34,
+      url = '';
+  try{
+  const apiKey = 'da8124feebc16ba503d23184ba5867a6';
+Farmland.allFarmlands((err, farmlands) => {
+  if(!farmlands) throw 'There is no farmland in the database';
+   else{
+for (let farmland of farmlands) {
+ lat = farmland.latitude;
+ long = farmland.longitude;
+ url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}&units=metric`;
+request(url, function(err, response, body) {
+  if(!body) throw 'No data fetched from API';
+   else {
+     console.log(body);
+    const weather = JSON.parse(body);
    
-//      const  weather_data = {
-//       temperature: weather.main.temp,
-//       humidity: weather.main.humidity,
-//       pressure: weather.main.pressure,
-//       wind_speed: weather.wind.speed,
-//       description: weather.weather[0].description 
-//     };   
-// Farmland.updateWeather(farmland._id, weather_data, (err, updated) => {
-// if(err) throw err;
-// if(!updated) throw 'Error in updating the farmland';
-// else {}});
-//  }});
-// }}});}
-// catch(err) {
-//   console.log(`Some err hapens ${err}`);
-// }
-// };
+     const  weather_data = {
+      temperature: weather.main.temp,
+      humidity: weather.main.humidity,
+      pressure: weather.main.pressure,
+      wind_speed: weather.wind.speed,
+      description: weather.weather[0].description 
+    };   
+Farmland.updateWeather(farmland._id, weather_data, (err, updated) => {
+if(err) throw err;
+if(!updated) throw 'Error in updating the farmland';
+else {}});
+ }});
+}}});}
+catch(err) {
+  console.log(`Some err hapens ${err}`);
+}
+};
 
 
 // // setting an interval for api call
