@@ -163,12 +163,15 @@ router.post('/sensor', (req, res) => {
   });
  }) ;
 
-router.post('/get-humidity', (err, res) => {
-    const farmland = req.body;
+router.get('/get-humidity/:id', (req, res) => {
+    const farmland = req.params.id;
     console.log(farmland);
-    Farmland.findById(farmland, {enviromental_weathe:1,}, (err, response ) => {
-      if(err)  throw err;
-});});
+    const humidity = 33;
+    res.json(humidity);
+//     Farmland.findById(farmland, {enviromental_weathe:1,}, (err, response ) => {
+//       if(err)  throw err;
+// });
+});
 
 //---------- Feaching national weather APi ---------
 
