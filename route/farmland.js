@@ -130,47 +130,85 @@ router.get('/user/feedback/:id', (req, res ) => {
 //................ Update farmland's sensor data................
 
 //  get farmland data from embedded system and append it the array
-router.put('/sensor/:id', (req, res) => {
-          const 
-                farmland = req.params.id,
-                data = req.body;      
-        Farmland.appendFarmlandSensorData(farmland, data, (err, data) => {
-            if(err) throw err;
-            if(data){res.json({success: true, msg:'Data is updated'});}
-                }) ;
-        });
+router.post('/sensor', (req, res) => {
+  console.log(req.body);
+   const 
+        farmland = req.body.famlandID,                // req.params.id,
+        data = {
+          soil_temprature: req.body.soil_temprature,
+          soil_moisture: req.body.soil_moisture,
+          soil_phLevel: req.body.soil_phLevel,
+          light_intensity: req.body.light_intensity,
+          motor_on: req.body.motor_on,
+          measured_at: Date.now()
+        },
+        location = {
+          latitude: req.body.latitude,
+          longitude: req.body.longitude
+            };
+   console.log(`${farmland}, ${data} , ${data.soil_moisture}`);
+  Farmland.findById(farmland, {latitude:1, longitude:1}, (err, response ) => {
+    if(err)  throw err;
+    if(!response)  {res.json({succses: false, msg:'No farmland in this location exists'});}
+    else if(location.latitude != response.latitude || location.longitude !== response.longitude){
+      {res.json({succses: false, msg:"Farmland and Sensor location didn't match"});} // server igonres an authenticated sensor data
+    }
+    else {
+      Farmland.findByIdAndUpdate(farmland, { $push: { embedded_system: data } }, { new: true }, (err, update) => {
+        if(err) throw err;
+        if(!update) {res.json({success: false, msg:'unable to update data'});}
+        if(update){res.json({success: true, msg:'Data is updated'});}
+      });
+     }
+  });
+ }) ;
+
+router.post('/get-humidity', (err, res) => {
+    const farmland = req.body;
+    console.log(farmland);
+    Farmland.findById(farmland, {enviromental_weathe:1,}, (err, response ) => {
+      if(err)  throw err;
+});});
 
 //---------- Feaching national weather APi ---------
 
 //  updating all farmlnds enviromental weather
-const fetchWeather = () => {
-  const apiKey = 'da8124feebc16ba503d23184ba5867a6';
-Farmland.allFarmlands((err, farmlands) => {
-  if (err) throw err
-  if(!farmlands) throw 'There is no farmland in the database';
-   else{
-for (let farmland of farmlands) {
-let lat = farmland.latitude;
-let long = farmland.longitude;
-let url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}&units=metric`;
-request(url, function(err, response, body) {
-  if(err) throw err;
-  if(!body) throw 'No data fetched from API';
-   else {
-   const weather = JSON.parse(body),
-      weather_data = {
-      temperature: weather.main.temp,
-      humidity: weather.main.humidity,
-      pressure: weather.main.pressure,
-      wind_speed: weather.wind.speed,
-      description: weather.weather[0].description 
-    };   
-Farmland.updateWeather(farmland._id, weather_data, (err, updated) => {
-if(err) throw err;
-if(!updated) throw 'Error in updating the farmland';
-else {}}); }});}}});};
+// const fetchWeather = () => {
+//   try{
+//   const apiKey = 'da8124feebc16ba503d23184ba5867a6';
+// Farmland.allFarmlands((err, farmlands) => {
+//   if(!farmlands) throw 'There is no farmland in the database';
+//    else{
+// for (let farmland of farmlands) {
+// let lat = farmland.latitude;
+// let long = farmland.longitude;
+// let url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}&units=metric`;
+// request(url, function(err, response, body) {
+//   if(!body) throw 'No data fetched from API';
+//    else {
+//      console.log(body);
+//     const weather = JSON.parse(body);
+   
+//      const  weather_data = {
+//       temperature: weather.main.temp,
+//       humidity: weather.main.humidity,
+//       pressure: weather.main.pressure,
+//       wind_speed: weather.wind.speed,
+//       description: weather.weather[0].description 
+//     };   
+// Farmland.updateWeather(farmland._id, weather_data, (err, updated) => {
+// if(err) throw err;
+// if(!updated) throw 'Error in updating the farmland';
+// else {}});
+//  }});
+// }}});}
+// catch(err) {
+//   console.log(`Some err hapens ${err}`);
+// }
+// };
 
-// setting an interval for api call
-setInterval(fetchWeather, 1000*3600);
+
+// // setting an interval for api call
+// setInterval(fetchWeather, 1000);
 
 module.exports = router;

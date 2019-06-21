@@ -89,17 +89,17 @@ module.exports.userFarmlandStatus = (farmland_id, callback) => {
 //------------------------- Embedded system Service---------------
 
 // data from embedded A
-module.exports.appendFarmlandSensorData = (farmland, data, callback) => {
-  Farmland.findById(farmland, {latitude:1, longitude:1}, (err, response ) => {
-    if(err)  throw err;
-    if(!response)  {response.json({succses: false, msg:'No farmland in this location exists'});}
-    else if(data.latitude != response.latitude || data.longitude !== response.longitude){
-      {response.json({succses: false, msg:"Farmland and Sensor location didn't match"});} // server igonres an authenticated sensor data
-    }
-    else {
-      Farmland.findByIdAndUpdate(farmland, { $push: { embedded_system: data } }, { new: true }, callback);
-     }
-  }); };
+// module.exports.appendFarmlandSensorData = (farmland, data, callback) => {
+//   Farmland.findById(farmland, {latitude:1, longitude:1}, (err, response ) => {
+//     if(err)  throw err;
+//     if(!response)  {response.json({succses: false, msg:'No farmland in this location exists'});}
+//     else if(data.latitude != response.latitude || data.longitude !== response.longitude){
+//       {response.json({succses: false, msg:"Farmland and Sensor location didn't match"});} // server igonres an authenticated sensor data
+//     }
+//     else {
+//       Farmland.findByIdAndUpdate(farmland, { $push: { embedded_system: data } }, { new: true }, callback);
+//      }
+//   }); };
 
 //................ Saving enviromental weather from national weather service..................
 
