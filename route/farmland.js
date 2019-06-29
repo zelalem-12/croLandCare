@@ -6,6 +6,8 @@ const
       router = express.Router(),
       Farmland = require('../model/farmland');
       User = require('../model/user');
+      Crop = require('../model/crop');
+
 
 
 //-------------------------Admin service ApI----------------------------
@@ -37,7 +39,7 @@ router.get('/admin/:id', (req, res ) => {
   Farmland.getFarmlandByID(farmalnd_id, (err, farmland) => {
     if (err) throw err
         else {
-          console.log(farmland);
+         // console.log(farmland);
           res.send(farmland);}
 })
 });   
@@ -131,7 +133,8 @@ router.get('/user/feedback/:id', (req, res ) => {
 
 //  get farmland data from embedded system and append it the array
 router.post('/sensor', (req, res) => {
-  console.log(req.body);
+
+  const current_datetime = new Date();
    const 
         farmland = req.body.famlandID,                // req.params.id,
         data = {
@@ -140,28 +143,103 @@ router.post('/sensor', (req, res) => {
           soil_phLevel: req.body.soil_phLevel,
           light_intensity: req.body.light_intensity,
           motor_on: req.body.motor_on,
-          measured_at: Date.now()
+          measured_at: current_datetime.getDate() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getFullYear()
         },
         location = {
           latitude: req.body.latitude,
           longitude: req.body.longitude
             };
-   console.log(`${farmland}, ${data} , ${data.soil_moisture}`);
-  Farmland.findById(farmland, {latitude:1, longitude:1}, (err, response ) => {
+  //  console.log(`${farmland}, ${data} , ${data.soil_moisture}`);
+  Farmland.findById(farmland, (err, response ) => {
     if(err)  throw err;
     if(!response)  {res.json({succses: false, msg:'No farmland in this location exists'});}
     else if(location.latitude != response.latitude || location.longitude !== response.longitude){
       {res.json({succses: false, msg:"Farmland and Sensor location didn't match"});} // server igonres an authenticated sensor data
     }
     else {
-      Farmland.findByIdAndUpdate(farmland, { $push: { embedded_system: data } }, { new: true }, (err, update) => {
+    Farmland.findByIdAndUpdate(farmland, { $addToSet: { embedded_system: data }}, { new: true }, (err, update) => {
         if(err) throw err;
-        if(!update) {res.json({success: false, msg:'unable to update data'});}
-        if(update){res.json({success: true, msg:'Data is updated'});}
-      });
+        if(!update) {throw err;}});
+        Farmland.findById(farmland, (err, farmUpdated ) => {
+          if(err) throw err;
+          if(!farmUpdated) {throw err;}
+
+      var  
+        soil_tempratureT = 0 ,
+        soil_moistureT  = 0,
+        soil_phLevelT = 0,
+        light_intensityT = 0,
+        countS = 0;
+
+    if(response.embedded_system.length = 0) countS = 1
+        for( let emb of farmUpdated.embedded_system) {
+          soil_tempratureT += emb.soil_temprature;
+          soil_moistureT += emb.soil_moisture;
+          soil_phLevelT += emb.soil_phLevel;
+          light_intensityT += emb.light_intensity;
+          countS +=1;
+        }
+      
+const avgSenosr = {
+  soil_temprature_avg: soil_tempratureT/countS,
+  soil_moisture_avg :soil_moistureT /countS,
+  soil_phLevel_avg :soil_phLevelT/countS,
+  light_intensity_avg: light_intensityT/countS  
+};
+console.log(avgSenosr);
+var  
+temperatureE = 0,
+humidityE  = 0,
+pressureE =  0,
+wind_speedE = 0,
+countE = 0;
+if(farmUpdated.enviromental_weather.length = 0) countE = 1;
+console.log(farmUpdated);
+for( let env of farmUpdated.enviromental_weather) {
+  temperatureE  += env.temperature;
+  humidityE += env.humidity;
+  pressureE  += env.pressure ;
+  wind_speedE += env.wind_speed;
+  countE +=1;
+}
+const environment = {
+  temperature_avg: temperatureE/countE,
+  humidity_avg : humidityE/countE,
+  pressure_avg : pressureE/countE,
+  wind_speed_avg: wind_speedE/countE  
+};
+ console.log(environment);
+Farmland.findByIdAndUpdate(farmland, { $set: { enviromental_weather_avg: environment, embedded_system_avg: avgSenosr}}, { new: true }, (err, avg_update) =>{
+  if(err) throw err;
+  if(!avg_update) throw 'err in calculating the avarige data';
+  else {
+    //find the recommondded crop 
+    Crop.find({}, {crop_name:1, 'soil_condition.temprature':1,'soil_condition.moisture':1,
+    'soil_condition.light_intensity':1, 'soil_condition.Ph_level':1,'enviromental_weather.a1ir_temperature':1,
+    'enviromental_weather.humidity':1}, (err, crops) => {
+      if(err) throw err;
+      if(!crops) throw 'No crop data';
+      else {
+        for (let crop of crops){
+          //console.log(crop);
+    if (
+      (crop.soil_condition.temprature-15 <= response.embedded_system_avg.soil_temprature_avg ||crop.soil_condition.temprature+15 >= response.embedded_system_avg.soil_temprature_avg)|| 
+      (crop.soil_condition.moisture-25 <= response.embedded_system_avg.soil_moisture_avg || crop.soil_condition.moisture+25 >= response.embedded_system_avg.soil_moisture_avg)||
+      (crop.soil_condition.Ph_level-0.2 <= response.embedded_system_avg.soil_phLevel_avg || crop.soil_condition.Ph_level+0.2 >= response.embedded_system_avg.soil_phLevel_avg) ||
+      (crop.soil_condition.light_intensity-50 <= response.embedded_system_avg.light_intensity_avg ||crop.soil_condition.light_intensity+ 50 >= response.embedded_system_avg.light_intensity_avg)){
+    Farmland.findByIdAndUpdate(farmland, { $addToSet:  { recCrop: crop.crop_name} }, { new: true }, (err, recom) => {
+          if(err) throw err;
+          if(!recom) {throw err;}
+          //res.json({data: recom})
+        });  }} }
+    });
+  }
+});
+}); 
      }
   });
  }) ;
+
 
 router.get('/get-humidity/:id', (req, res) => {
     const farmland = req.params.id;
@@ -177,25 +255,23 @@ router.get('/get-humidity/:id', (req, res) => {
 
  // updating all farmlnds enviromental weather
 const fetchWeather = () => {
-  const 
-      lat = 8.05,
-      long = 37.34,
-      url = '';
   try{
   const apiKey = 'da8124feebc16ba503d23184ba5867a6';
 Farmland.allFarmlands((err, farmlands) => {
   if(!farmlands) throw 'There is no farmland in the database';
    else{
+    console.log(farmlands);
 for (let farmland of farmlands) {
- lat = farmland.latitude;
- long = farmland.longitude;
- url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}&units=metric`;
+ let lat = farmland.latitude;
+ let long = farmland.longitude;
+const  url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}&units=metric`;
 request(url, function(err, response, body) {
   if(!body) throw 'No data fetched from API';
    else {
-     console.log(body);
+   //  console.log(body);
     const weather = JSON.parse(body);
-   
+   // console.log(weather);
+
      const  weather_data = {
       temperature: weather.main.temp,
       humidity: weather.main.humidity,
@@ -203,6 +279,7 @@ request(url, function(err, response, body) {
       wind_speed: weather.wind.speed,
       description: weather.weather[0].description 
     };   
+    console.log(weather_data);
 Farmland.updateWeather(farmland._id, weather_data, (err, updated) => {
 if(err) throw err;
 if(!updated) throw 'Error in updating the farmland';
@@ -216,6 +293,6 @@ catch(err) {
 
 
 // // setting an interval for api call
-// setInterval(fetchWeather, 1000);
+   setInterval(fetchWeather, 10000);
 
 module.exports = router;

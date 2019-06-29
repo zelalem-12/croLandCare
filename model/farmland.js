@@ -1,7 +1,7 @@
 const 
     mongoose = require('mongoose');
     User = require('./user');
-    
+    const current_datetime = new Date();
 // Farmlands Schema
 const FarmlandSchema = mongoose.Schema({
   farmland_area: { type: Number, required: true }, 
@@ -12,6 +12,21 @@ const FarmlandSchema = mongoose.Schema({
   latitude:{type: Number, required: true},
   longitude:{type: Number, required: true}, 
   ownedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+  recCrop: [{type: String}],
+  embedded_system_avg: { 
+    soil_temprature_avg: {type: Number, default: 0},
+    soil_moisture_avg: {type: Number, default: 0},
+    soil_phLevel_avg: {type: Number, default: 0},
+    light_intensity_avg: {type: Number, default: 0},
+  },
+  enviromental_weather_avg: {
+    temperature_avg:  { type: Number, default: 0},
+    humidity_avg: { type: Number, default: 0},
+    pressure_avg: {type: Number, default: 0},
+    wind_speed_avg: {type: Number, default: 0},
+     },
+
+  
   embedded_system: [{ 
                         _id: false,
                         soil_temprature: {type: Number, default: 0},
@@ -19,7 +34,7 @@ const FarmlandSchema = mongoose.Schema({
                         soil_phLevel: {type: Number, default: 0},
                         light_intensity: {type: Number, default: 0},
                         motor_on: {type: String, defaultL: "Off"},
-                        measured_at:{type: Number, default: Date.now()}
+                        measured_at:{type: String, default: current_datetime.getDate() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getFullYear()}
                       }],
   enviromental_weather: [{
           _id: false,
@@ -28,7 +43,7 @@ const FarmlandSchema = mongoose.Schema({
           pressure: {type: Number, default: 0},
           wind_speed: {type: Number, default: 0},
           description: {type: String, default: ""},
-          date: {type: Number, default: Date.now()}
+          date: {type: String, default: current_datetime.getDate() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getFullYear()}
            }]
 });
 const Farmland = module.exports = mongoose.model('Farmland', FarmlandSchema);
@@ -67,7 +82,6 @@ module.exports.getFarmlandByLocation = (location, callback) => {
 };
 // Updating a farmland on hiring
 module.exports.hireFarmland = (farmland_id, user_id, callback) => {
-  console.log('----- '+ user_id)
   Farmland.findByIdAndUpdate(farmland_id , { $set: { ownedBy: user_id} }, { new: true }, callback);
 };
 //------------------------- User service ApI---------------
@@ -83,54 +97,15 @@ module.exports.userFarmlandStatus = (farmland_id, callback) => {
 };
 
 // getting Feedback System
-// module.exports.getSystemFeedback = () => {}
-
-
-//------------------------- Embedded system Service---------------
-
-// data from embedded A
-// module.exports.appendFarmlandSensorData = (farmland, data, callback) => {
-//   Farmland.findById(farmland, {latitude:1, longitude:1}, (err, response ) => {
-//     if(err)  throw err;
-//     if(!response)  {response.json({succses: false, msg:'No farmland in this location exists'});}
-//     else if(data.latitude != response.latitude || data.longitude !== response.longitude){
-//       {response.json({succses: false, msg:"Farmland and Sensor location didn't match"});} // server igonres an authenticated sensor data
-//     }
-//     else {
-//       Farmland.findByIdAndUpdate(farmland, { $push: { embedded_system: data } }, { new: true }, callback);
-//      }
-//   }); };
 
 //................ Saving enviromental weather from national weather service..................
 
 // Get farmland for weather update 
 module.exports.allFarmlands = callback => {
-  Farmland.find({}, {'location.latitude': 1,'location.longitude': 1}, callback);
+  Farmland.find({}, {latitude: 1,longitude: 1}, callback);
   };
 
   // Update farmland data
 module.exports.updateWeather = (farmland_id, weather, callback ) => {
-  Farmland.findByIdAndUpdate(farmland_id, { $push: { enviromental_weather: weather }}, callback);
+  Farmland.findByIdAndUpdate(farmland_id, { $addToSet: { enviromental_weather: weather}}, callback);
   };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

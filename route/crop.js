@@ -25,7 +25,6 @@ router.post('/', (req, res, next) => {
     'enviromental_weather.air_temperature': Number(req.body.air_temperature),
     'enviromental_weather.humidity': Number(req.body.humidity)
   });
-  console.log(newCrop);
   Crop.addCrop(newCrop, (err,crop) => {
     if(err){
       res.json({success: false, msg:'Failed to register a Crop'});
@@ -58,6 +57,5 @@ router.get('/:crop_name', (req, res) => {
          });
      });  
   
-
 
 module.exports = router;
