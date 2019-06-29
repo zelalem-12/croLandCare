@@ -107,5 +107,5 @@ module.exports.allFarmlands = callback => {
 
   // Update farmland data
 module.exports.updateWeather = (farmland_id, weather, callback ) => {
-  Farmland.findByIdAndUpdate(farmland_id, { $addToSet: { enviromental_weather: weather}}, callback);
+  Farmland.findByIdAndUpdate(farmland_id, { $push: { enviromental_weather: weather}}, callback);
   };

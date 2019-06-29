@@ -150,20 +150,18 @@ router.post('/sensor', (req, res) => {
           longitude: req.body.longitude
             };
   //  console.log(`${farmland}, ${data} , ${data.soil_moisture}`);
-  Farmland.findById(farmland, (err, response ) => {
+  Farmland.findById(farmland, {_id:0,latitude:1,longitude:1 }, (err, response ) => {
     if(err)  throw err;
-    if(!response)  {res.json({succses: false, msg:'No farmland in this location exists'});}
+    if(!response)  throw 'No farmland in this location exists';
     else if(location.latitude != response.latitude || location.longitude !== response.longitude){
-      {res.json({succses: false, msg:"Farmland and Sensor location didn't match"});} // server igonres an authenticated sensor data
-    }
-    else {
-    Farmland.findByIdAndUpdate(farmland, { $addToSet: { embedded_system: data }}, { new: true }, (err, update) => {
+      { throw "Farmland and Sensor location didn't match";} // server igonres an authenticated sensor data
+    }  });
+    Farmland.findByIdAndUpdate(farmland, { $push: { embedded_system: data }}, { new: true }, (err, update) => {
         if(err) throw err;
-        if(!update) {throw err;}});
-        Farmland.findById(farmland, (err, farmUpdated ) => {
+        if(!update) throw 'Unable return the updated data'});
+        Farmland.findById(farmland, {_id: 0,embedded_system:1, enviromental_weather:1,embedded_system_avg:1,enviromental_weather_avg:1}, (err, farmUpdated ) => {
           if(err) throw err;
-          if(!farmUpdated) {throw err;}
-
+          if(!farmUpdated) throw 'Something Gone Wrong' ;
       var  
         soil_tempratureT = 0 ,
         soil_moistureT  = 0,
@@ -171,73 +169,69 @@ router.post('/sensor', (req, res) => {
         light_intensityT = 0,
         countS = 0;
 
-    if(response.embedded_system.length = 0) countS = 1
+    if(farmUpdated.embedded_system.length != 0){
         for( let emb of farmUpdated.embedded_system) {
           soil_tempratureT += emb.soil_temprature;
           soil_moistureT += emb.soil_moisture;
           soil_phLevelT += emb.soil_phLevel;
           light_intensityT += emb.light_intensity;
           countS +=1;
-        }
-      
+        } 
+    }else count = 1;
 const avgSenosr = {
   soil_temprature_avg: soil_tempratureT/countS,
   soil_moisture_avg :soil_moistureT /countS,
   soil_phLevel_avg :soil_phLevelT/countS,
   light_intensity_avg: light_intensityT/countS  
 };
-console.log(avgSenosr);
+//console.log(avgSenosr);
 var  
 temperatureE = 0,
 humidityE  = 0,
 pressureE =  0,
 wind_speedE = 0,
 countE = 0;
-if(farmUpdated.enviromental_weather.length = 0) countE = 1;
-console.log(farmUpdated);
+if(farmUpdated.enviromental_weather.length != 0){
 for( let env of farmUpdated.enviromental_weather) {
   temperatureE  += env.temperature;
   humidityE += env.humidity;
   pressureE  += env.pressure ;
-  wind_speedE += env.wind_speed;
+  wind_speedE += env.wind_speed; 
   countE +=1;
-}
+}} else  countE = 1;
 const environment = {
   temperature_avg: temperatureE/countE,
   humidity_avg : humidityE/countE,
   pressure_avg : pressureE/countE,
   wind_speed_avg: wind_speedE/countE  
 };
- console.log(environment);
+ //console.log(environment);
 Farmland.findByIdAndUpdate(farmland, { $set: { enviromental_weather_avg: environment, embedded_system_avg: avgSenosr}}, { new: true }, (err, avg_update) =>{
   if(err) throw err;
-  if(!avg_update) throw 'err in calculating the avarige data';
-  else {
+  if(!avg_update) throw 'err in calculating the avarige data';});
     //find the recommondded crop 
-    Crop.find({}, {crop_name:1, 'soil_condition.temprature':1,'soil_condition.moisture':1,
-    'soil_condition.light_intensity':1, 'soil_condition.Ph_level':1,'enviromental_weather.a1ir_temperature':1,
-    'enviromental_weather.humidity':1}, (err, crops) => {
+    Farmland.findById(farmland, {_id: 0,embedded_system_avg:1}, (err, farmland4CropSug) =>{
       if(err) throw err;
-      if(!crops) throw 'No crop data';
-      else {
-        for (let crop of crops){
-          //console.log(crop);
-    if (
-      (crop.soil_condition.temprature-15 <= response.embedded_system_avg.soil_temprature_avg ||crop.soil_condition.temprature+15 >= response.embedded_system_avg.soil_temprature_avg)|| 
-      (crop.soil_condition.moisture-25 <= response.embedded_system_avg.soil_moisture_avg || crop.soil_condition.moisture+25 >= response.embedded_system_avg.soil_moisture_avg)||
-      (crop.soil_condition.Ph_level-0.2 <= response.embedded_system_avg.soil_phLevel_avg || crop.soil_condition.Ph_level+0.2 >= response.embedded_system_avg.soil_phLevel_avg) ||
-      (crop.soil_condition.light_intensity-50 <= response.embedded_system_avg.light_intensity_avg ||crop.soil_condition.light_intensity+ 50 >= response.embedded_system_avg.light_intensity_avg)){
-    Farmland.findByIdAndUpdate(farmland, { $addToSet:  { recCrop: crop.crop_name} }, { new: true }, (err, recom) => {
-          if(err) throw err;
-          if(!recom) {throw err;}
-          //res.json({data: recom})
-        });  }} }
-    });
-  }
-});
+      if(!farmland4CropSug) throw 'Something gone wrong';
+      Crop.find({}, {_id:0,crop_name:1, 'soil_condition.temprature':1,'soil_condition.moisture':1,
+      'soil_condition.light_intensity':1, 'soil_condition.Ph_level':1}, (err, crops) => {
+        if(err) throw err;
+        if(!crops) throw 'No crop data'; 
+          for (let crop of crops){
+      if (
+        (crop.soil_condition.temprature-15 <= farmland4CropSug.embedded_system_avg.soil_temprature_avg && crop.soil_condition.temprature+15 >= farmland4CropSug.embedded_system_avg.soil_temprature_avg)|| 
+        (crop.soil_condition.moisture-25 <= farmland4CropSug.embedded_system_avg.soil_moisture_avg && crop.soil_condition.moisture+25 >= farmland4CropSug.embedded_system_avg.soil_moisture_avg)||
+        (crop.soil_condition.Ph_level-0.2 <= farmland4CropSug.embedded_system_avg.soil_phLevel_avg && crop.soil_condition.Ph_level+0.2 >= farmland4CropSug.embedded_system_avg.soil_phLevel_avg) ||
+        (crop.soil_condition.light_intensity-50 <= farmland4CropSug.embedded_system_avg.light_intensity_avg && crop.soil_condition.light_intensity+ 50 >= farmland4CropSug.embedded_system_avg.light_intensity_avg)){
+      Farmland.findByIdAndUpdate(farmland, { $addToSet:  { recCrop: crop.crop_name} }, { new: true }, (err, recom) => {
+            if(err) throw err;
+            if(!recom) {throw err;}
+          });  }} 
+      });
+     });
+  
 }); 
-     }
-  });
+
  }) ;
 
 
@@ -290,9 +284,6 @@ catch(err) {
   console.log(`Some err hapens ${err}`);
 }
 };
-
-
-// // setting an interval for api call
-   setInterval(fetchWeather, 10000);
+   //setInterval(fetchWeather, 10000);
 
 module.exports = router;
