@@ -8,6 +8,9 @@ const
       User = require('../model/user');
       Crop = require('../model/crop');
 
+      var current_datetime = new Date();
+      const now =  current_datetime.getDate() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getFullYear();
+
 
 
 //-------------------------Admin service ApI----------------------------
@@ -73,7 +76,8 @@ router.delete('/admin/delete/:id',(req, res) => {
 router.get('/guest', (req, res) => {
   Farmland.getAllUnhiredFarmlands((err, farmlands) => {
     if (err) throw err
-        else {res.json(farmlands);}
+ //console.log(farmlands);
+         else {res.json(farmlands);}
 });
 });
 
@@ -90,16 +94,20 @@ router.put('/guest/:id/:user_id', (req, res) => {
   const 
      farmland_id = req.params.id,
      user = req.params.user_id;
-      // console.log(`${user} and ${farmland_id}`);
+      //  console.log(`${user} and ${farmland_id}`);
 Farmland.hireFarmland(farmland_id, user, (err, farmlandUpdated) => {
   if(err) throw err;
   if(!farmlandUpdated) {res.json({success: false, msg: 'Opps something wrong while hiring the farmland'});
    } else {
-  User.findByIdAndUpdate(user , { $push: { farmland_owned: farmland_id} }, { new: true }, (err, userUpdated) => {
+  User.findByIdAndUpdate(user , { $push: {userID: 1, farmland_owned: farmland_id} }, { new: true }, (err, userUpdated) => {
     if(err) throw err;
     if(!userUpdated) {res.json({success: false, msg: 'Opps something wrong while hiring the farmland'});
-     } else {res.json({success: false, msg: "Farmland hired Successfully"});}
-  });} }); });
+     } else {
+      const notification = `A farmer with passport ID ${user.userID} hired the farmland ${farmland_id} on ${now}`;
+       User.update({username: 'admin'}, {$push: {notification: notification}});
+       res.json({success: false, msg: "Farmland hired Successfully"});}
+  });} });
+ });
 
 
 //------------------------- User Service API ----------------------------
@@ -113,22 +121,22 @@ Farmland.getUserFarmland(user, (err, myFarmland) => {
 });
 
 // Getting status for a particular users's farnland
-router.get('/user/status/:id', (req, res ) => {
-  farmland_id = req.params.id;
- Farmland.userFarmlandStatus(farmland_id, (err, farmland_status ) => {
-if(err) throw err;
-res.json({status: farmland_status});
- });
-});
+// router.get('/user/status/:id', (req, res ) => {
+//   farmland_id = req.params.id;
+//  Farmland.userFarmlandStatus(farmland_id, (err, farmland_status ) => {
+// if(err) throw err;
+// res.json({status: farmland_status});
+//  });
+// });
 
-// Getting system feedback
-router.get('/user/feedback/:id', (req, res ) => {
-  farmland_id = req.params.id;
-  Farmland.getSystemFeedback(farmland_id, (err, fb ) => {
-    if(err) throw err;
-    res.json({feedback: fb});
-  });
-});
+// // Getting system feedback
+// router.get('/user/feedback/:id', (req, res ) => {
+//   farmland_id = req.params.id;
+//   Farmland.getSystemFeedback(farmland_id, (err, fb ) => {
+//     if(err) throw err;
+//     res.json({feedback: fb});
+//   });
+// });
 //................ Update farmland's sensor data................
 
 //  get farmland data from embedded system and append it the array
@@ -224,8 +232,14 @@ Farmland.findByIdAndUpdate(farmland, { $set: { enviromental_weather_avg: environ
         (crop.soil_condition.Ph_level-0.2 <= farmland4CropSug.embedded_system_avg.soil_phLevel_avg && crop.soil_condition.Ph_level+0.2 >= farmland4CropSug.embedded_system_avg.soil_phLevel_avg) ||
         (crop.soil_condition.light_intensity-50 <= farmland4CropSug.embedded_system_avg.light_intensity_avg && crop.soil_condition.light_intensity+ 50 >= farmland4CropSug.embedded_system_avg.light_intensity_avg)){
       Farmland.findByIdAndUpdate(farmland, { $addToSet:  { recCrop: crop.crop_name} }, { new: true }, (err, recom) => {
-            if(err) throw err;
-            if(!recom) {throw err;}
+        if(err) throw err;
+        if(!recom) {throw err;}
+        if (embedded_system_avg.soil_moisture_avg > 750) {
+          const notification = "The avarage soil moisture level is bellow the threshold value, please check your water pump if is out of servce";
+          User.update({username: 'admin'}, {$push: {notification: notification}});}
+          if (embedded_system_avg.soil_phLevel_avg < 2) {
+            const notification = "The avarage PH lebel level is bellow the threshold value which indicate more acidic, please use some basic chemicals";
+            User.update({username: {$not:'admin'}}, {$push: {notification: notification}});}
           });  }} 
       });
      });
@@ -234,15 +248,14 @@ Farmland.findByIdAndUpdate(farmland, { $set: { enviromental_weather_avg: environ
 
  }) ;
 
-
 router.get('/get-humidity/:id', (req, res) => {
-    const farmland = req.params.id;
-    console.log(farmland);
-    const humidity = 33;
-    res.json(humidity);
-//     Farmland.findById(farmland, {enviromental_weathe:1,}, (err, response ) => {
-//       if(err)  throw err;
-// });
+   Farmland.findById(req.params.id, {enviromental_weather:1}, (err, response ) => {
+      if(err)  throw err;
+      if(!response) throw `No farmland exixts for farrmland id ${farmland}`;
+       const last_weather= response.enviromental_weather.length-1
+      console.log(response.enviromental_weather[last_weather].humidity);
+      res.json(response.enviromental_weather[last_weather].humidity);
+});
 });
 
 //---------- Feaching national weather APi ---------

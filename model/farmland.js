@@ -72,8 +72,13 @@ module.exports.deleteFarmland = (farmland_id, callback) =>{
 //------------------------- Guest service ApI---------------
 // getting all un hired farmalnds
 module.exports.getAllUnhiredFarmlands = callback => {
-  Farmland.find({ownedBy: null}, callback);
+  Farmland.find({ownedBy: null}, {farmland_area: 1, farmland_experiance:1,farmland_description:1,
+    soil_type:1,physical_address:1, latitude:1,longitude:1 }, callback);
 };
+
+
+
+
 
 // Searching farmalnds by location
 module.exports.getFarmlandByLocation = (location, callback) => {

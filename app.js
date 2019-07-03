@@ -10,7 +10,7 @@ const
         config = require('./config/database');
 
 // Connect To Database
-mongoose.Promise = require('bluebird');
+mongoose.set('useCreateIndex', true)
 mongoose.connect(config.database, {useNewUrlParser: true, promiseLibrary: require('bluebird') })
   .then(() => console.log(`Connected to database ${config.database}`))
   .catch((err) => console.log(`Database error: ${err}`));
@@ -22,7 +22,6 @@ const
         Farmland = require('./route/farmland'),
         Crop = require('./route/crop');
         Contact = require('./route/contact');
-
 // CORS Middleware 
 app.use(cors());
 

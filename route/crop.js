@@ -25,13 +25,14 @@ router.post('/', (req, res, next) => {
     'enviromental_weather.air_temperature': Number(req.body.air_temperature),
     'enviromental_weather.humidity': Number(req.body.humidity)
   });
-  Crop.addCrop(newCrop, (err,crop) => {
-    if(err){
-      res.json({success: false, msg:'Failed to register a Crop'});
-    } else {
-      res.json({success: true, msg:'Crop registered', crop: crop});
-    }
-  });
+  console.log(newCrop);
+  // Crop.addCrop(newCrop, (err,crop) => {
+  //   if(err){
+  //     res.json({success: false, msg:'Failed to register a Crop'});
+  //   } else {
+  //     res.json({success: true, msg:'Crop registered', crop: crop});
+  //   }
+  // });
 });
 
 
@@ -57,5 +58,6 @@ router.get('/:crop_name', (req, res) => {
          });
      });  
   
+
 
 module.exports = router;

@@ -20,16 +20,6 @@ const CropSchema = mongoose.Schema({
          humidity: {type: Number, required: true},
                }
 });
-
-/*
-crope description
-{ingredianets or input to produce
-avarage product per hectar
-crope usage 
-advantage and dissadvantage of th crope
-}
-*/
-
 const Crop = module.exports = mongoose.model('Crop', CropSchema);
 
 

@@ -18,6 +18,7 @@ const UserSchema = mongoose.Schema({
     isAdmin:  {type: Boolean, default: true},
     date_registered: {type: String, required: true, default: ''},
     farmland_owned: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Farmalnd', default: []}],
+    notification: [{type: String, default:''}],
     user_detail: {
               user_picture: { data: Buffer, contentType: String},
               phone: { type: String,  default:"" },  

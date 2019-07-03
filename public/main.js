@@ -104,12 +104,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../app-routing.module */ "./src/app/app-routing.module.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var _components_admin_notification_admin_notification_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/admin-notification/admin-notification.component */ "./src/app/admin/components/admin-notification/admin-notification.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -138,6 +140,7 @@ AdminModule = __decorate([
             _components_add_crop_add_crop_component__WEBPACK_IMPORTED_MODULE_6__["AddCropComponent"],
             _components_farmland_registration_farmland_registration_component__WEBPACK_IMPORTED_MODULE_4__["FarmlandRegistrationComponent"],
             _components_farmers_list_farmers_list_component__WEBPACK_IMPORTED_MODULE_5__["FarmersListComponent"],
+            _components_admin_notification_admin_notification_component__WEBPACK_IMPORTED_MODULE_10__["AdminNotificationComponent"],
         ]
     })
 ], AdminModule);
@@ -231,6 +234,74 @@ AddCropComponent = __decorate([
         _common_services_crop_service__WEBPACK_IMPORTED_MODULE_2__["CropService"],
         _common_services_notification_service__WEBPACK_IMPORTED_MODULE_1__["NotificationServiceService"]])
 ], AddCropComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/admin/components/admin-notification/admin-notification.component.css":
+/*!**************************************************************************************!*\
+  !*** ./src/app/admin/components/admin-notification/admin-notification.component.css ***!
+  \**************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/admin/components/admin-notification/admin-notification.component.html":
+/*!***************************************************************************************!*\
+  !*** ./src/app/admin/components/admin-notification/admin-notification.component.html ***!
+  \***************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<!-- <p>\r\n  <span matBadge=\"4\" matBadgeOverlap=\"false\">Text with a badge</span>\r\n</p>\r\n\r\n<p>\r\n  Button with a badge on the left\r\n  <button mat-raised-button color=\"primary\"\r\n      matBadge=\"8\" matBadgePosition=\"before\" matBadgeColor=\"accent\">\r\n    Action\r\n  </button>\r\n</p>\r\n\r\n<p>\r\n  Icon with a badge\r\n  <mat-icon matBadge=\"15\" matBadgeColor=\"warn\">home</mat-icon>\r\n    <span class=\"cdk-visually-hidden\">\r\n      Example with a home icon with overlaid badge showing the number 15\r\n    </span>\r\n</p>\r\n -->\r\n <div *ngFor = \"let notfication of admin_notification\">\r\n    <li>{{notfication}}</li>\r\n </div>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/admin/components/admin-notification/admin-notification.component.ts":
+/*!*************************************************************************************!*\
+  !*** ./src/app/admin/components/admin-notification/admin-notification.component.ts ***!
+  \*************************************************************************************/
+/*! exports provided: AdminNotificationComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminNotificationComponent", function() { return AdminNotificationComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var app_common_services_auth_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/common/services/auth.service */ "./src/app/common/services/auth.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+let AdminNotificationComponent = class AdminNotificationComponent {
+    constructor(authService) {
+        this.authService = authService;
+    }
+    ngOnInit() {
+        this.authService.getAdminNotification().subscribe(data => {
+            this.admin_notification = data;
+        });
+    }
+};
+AdminNotificationComponent = __decorate([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+        selector: 'app-admin-notification',
+        template: __webpack_require__(/*! ./admin-notification.component.html */ "./src/app/admin/components/admin-notification/admin-notification.component.html"),
+        styles: [__webpack_require__(/*! ./admin-notification.component.css */ "./src/app/admin/components/admin-notification/admin-notification.component.css")]
+    }),
+    __metadata("design:paramtypes", [app_common_services_auth_service__WEBPACK_IMPORTED_MODULE_1__["AuthService"]])
+], AdminNotificationComponent);
 
 
 
@@ -421,26 +492,29 @@ FarmlandRegistrationComponent = __decorate([
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppRoutingModule", function() { return AppRoutingModule; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
-/* harmony import */ var _common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./common/guards/auth.guard */ "./src/app/common/guards/auth.guard.ts");
-/* harmony import */ var _common_guards_role_guard_guard__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./common/guards/role-guard.guard */ "./src/app/common/guards/role-guard.guard.ts");
-/* harmony import */ var _common_page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./common/page-not-found/page-not-found.component */ "./src/app/common/page-not-found/page-not-found.component.ts");
-/* harmony import */ var _gust_gust_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./gust/gust.component */ "./src/app/gust/gust.component.ts");
-/* harmony import */ var _gust_components_welcome_welcome_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./gust/components/welcome/welcome.component */ "./src/app/gust/components/welcome/welcome.component.ts");
-/* harmony import */ var _gust_components_farmlands_farmlands_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./gust/components/farmlands/farmlands.component */ "./src/app/gust/components/farmlands/farmlands.component.ts");
-/* harmony import */ var _gust_components_crops_crops_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./gust/components/crops/crops.component */ "./src/app/gust/components/crops/crops.component.ts");
-/* harmony import */ var _gust_components_contact_contact_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./gust/components/contact/contact.component */ "./src/app/gust/components/contact/contact.component.ts");
-/* harmony import */ var _gust_components_aboutUs_aboutus_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./gust/components/aboutUs/aboutus.component */ "./src/app/gust/components/aboutUs/aboutus.component.ts");
-/* harmony import */ var _gust_components_register_register_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./gust/components/register/register.component */ "./src/app/gust/components/register/register.component.ts");
-/* harmony import */ var _farmer_farmer_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./farmer/farmer.component */ "./src/app/farmer/farmer.component.ts");
-/* harmony import */ var _farmer_components_profile_profile_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./farmer/components/profile/profile.component */ "./src/app/farmer/components/profile/profile.component.ts");
-/* harmony import */ var _farmer_components_home_home_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./farmer/components/home/home.component */ "./src/app/farmer/components/home/home.component.ts");
-/* harmony import */ var _farmer_components_my_farmalnds_my_farmalnds_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./farmer/components/my-farmalnds/my-farmalnds.component */ "./src/app/farmer/components/my-farmalnds/my-farmalnds.component.ts");
-/* harmony import */ var _admin_admin_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./admin/admin.component */ "./src/app/admin/admin.component.ts");
-/* harmony import */ var _admin_components_add_crop_add_crop_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./admin/components/add-crop/add-crop.component */ "./src/app/admin/components/add-crop/add-crop.component.ts");
-/* harmony import */ var _admin_components_farmland_registration_farmland_registration_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./admin/components/farmland-registration/farmland-registration.component */ "./src/app/admin/components/farmland-registration/farmland-registration.component.ts");
-/* harmony import */ var _admin_components_farmers_list_farmers_list_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./admin/components/farmers-list/farmers-list.component */ "./src/app/admin/components/farmers-list/farmers-list.component.ts");
+/* harmony import */ var _admin_components_admin_notification_admin_notification_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./admin/components/admin-notification/admin-notification.component */ "./src/app/admin/components/admin-notification/admin-notification.component.ts");
+/* harmony import */ var _farmer_components_farmer_notification_farmer_notification_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./farmer/components/farmer-notification/farmer-notification.component */ "./src/app/farmer/components/farmer-notification/farmer-notification.component.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./common/guards/auth.guard */ "./src/app/common/guards/auth.guard.ts");
+/* harmony import */ var _common_guards_role_guard_guard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./common/guards/role-guard.guard */ "./src/app/common/guards/role-guard.guard.ts");
+/* harmony import */ var _common_page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./common/page-not-found/page-not-found.component */ "./src/app/common/page-not-found/page-not-found.component.ts");
+/* harmony import */ var _gust_gust_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./gust/gust.component */ "./src/app/gust/gust.component.ts");
+/* harmony import */ var _gust_components_welcome_welcome_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./gust/components/welcome/welcome.component */ "./src/app/gust/components/welcome/welcome.component.ts");
+/* harmony import */ var _gust_components_farmlands_farmlands_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./gust/components/farmlands/farmlands.component */ "./src/app/gust/components/farmlands/farmlands.component.ts");
+/* harmony import */ var _gust_components_crops_crops_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./gust/components/crops/crops.component */ "./src/app/gust/components/crops/crops.component.ts");
+/* harmony import */ var _gust_components_contact_contact_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./gust/components/contact/contact.component */ "./src/app/gust/components/contact/contact.component.ts");
+/* harmony import */ var _gust_components_aboutUs_aboutus_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./gust/components/aboutUs/aboutus.component */ "./src/app/gust/components/aboutUs/aboutus.component.ts");
+/* harmony import */ var _gust_components_register_register_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./gust/components/register/register.component */ "./src/app/gust/components/register/register.component.ts");
+/* harmony import */ var _gust_components_hiring_policy_hiring_policy_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./gust/components/hiring-policy/hiring-policy.component */ "./src/app/gust/components/hiring-policy/hiring-policy.component.ts");
+/* harmony import */ var _farmer_farmer_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./farmer/farmer.component */ "./src/app/farmer/farmer.component.ts");
+/* harmony import */ var _farmer_components_profile_profile_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./farmer/components/profile/profile.component */ "./src/app/farmer/components/profile/profile.component.ts");
+/* harmony import */ var _farmer_components_home_home_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./farmer/components/home/home.component */ "./src/app/farmer/components/home/home.component.ts");
+/* harmony import */ var _farmer_components_my_farmalnds_my_farmalnds_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./farmer/components/my-farmalnds/my-farmalnds.component */ "./src/app/farmer/components/my-farmalnds/my-farmalnds.component.ts");
+/* harmony import */ var _admin_admin_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./admin/admin.component */ "./src/app/admin/admin.component.ts");
+/* harmony import */ var _admin_components_add_crop_add_crop_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./admin/components/add-crop/add-crop.component */ "./src/app/admin/components/add-crop/add-crop.component.ts");
+/* harmony import */ var _admin_components_farmland_registration_farmland_registration_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./admin/components/farmland-registration/farmland-registration.component */ "./src/app/admin/components/farmland-registration/farmland-registration.component.ts");
+/* harmony import */ var _admin_components_farmers_list_farmers_list_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./admin/components/farmers-list/farmers-list.component */ "./src/app/admin/components/farmers-list/farmers-list.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -449,11 +523,14 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 };
 
 
+
+
 // Common components and services
 
 
 
 // Gusts section
+
 
 
 
@@ -474,39 +551,42 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 // Defining Route mocdule
 const appRoutes = [
     { path: '', redirectTo: 'gust', pathMatch: 'full' },
-    { path: 'gust', component: _gust_gust_component__WEBPACK_IMPORTED_MODULE_5__["GustComponent"],
+    { path: 'gust', component: _gust_gust_component__WEBPACK_IMPORTED_MODULE_7__["GustComponent"],
         children: [
             { path: '', redirectTo: 'welcome', pathMatch: 'full' },
-            { path: 'welcome', component: _gust_components_welcome_welcome_component__WEBPACK_IMPORTED_MODULE_6__["WelcomeComponent"] },
-            { path: 'farmlands', component: _gust_components_farmlands_farmlands_component__WEBPACK_IMPORTED_MODULE_7__["FarmlandsComponent"] },
-            { path: 'about-us', component: _gust_components_aboutUs_aboutus_component__WEBPACK_IMPORTED_MODULE_10__["AboutusComponent"] },
-            { path: 'contact-us', component: _gust_components_contact_contact_component__WEBPACK_IMPORTED_MODULE_9__["ContactComponent"] },
-            { path: 'crops', component: _gust_components_crops_crops_component__WEBPACK_IMPORTED_MODULE_8__["CropsComponent"] },
-            { path: 'register', component: _gust_components_register_register_component__WEBPACK_IMPORTED_MODULE_11__["RegisterComponent"] }
+            { path: 'welcome', component: _gust_components_welcome_welcome_component__WEBPACK_IMPORTED_MODULE_8__["WelcomeComponent"] },
+            { path: 'farmlands', component: _gust_components_farmlands_farmlands_component__WEBPACK_IMPORTED_MODULE_9__["FarmlandsComponent"] },
+            { path: 'about-us', component: _gust_components_aboutUs_aboutus_component__WEBPACK_IMPORTED_MODULE_12__["AboutusComponent"] },
+            { path: 'contact-us', component: _gust_components_contact_contact_component__WEBPACK_IMPORTED_MODULE_11__["ContactComponent"] },
+            { path: 'crops', component: _gust_components_crops_crops_component__WEBPACK_IMPORTED_MODULE_10__["CropsComponent"] },
+            { path: 'register', component: _gust_components_register_register_component__WEBPACK_IMPORTED_MODULE_13__["RegisterComponent"] },
+            { path: 'term-and-policies', component: _gust_components_hiring_policy_hiring_policy_component__WEBPACK_IMPORTED_MODULE_14__["HiringPolicyComponent"] }
         ] },
-    { path: 'farmers', component: _farmer_farmer_component__WEBPACK_IMPORTED_MODULE_12__["FarmerComponent"],
+    { path: 'farmers', component: _farmer_farmer_component__WEBPACK_IMPORTED_MODULE_15__["FarmerComponent"],
         children: [
             { path: '', redirectTo: 'home', pathMatch: 'full' },
-            { path: 'home', component: _farmer_components_home_home_component__WEBPACK_IMPORTED_MODULE_14__["HomeComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_2__["AuthGuard"]] },
-            { path: 'profile', component: _farmer_components_profile_profile_component__WEBPACK_IMPORTED_MODULE_13__["ProfileComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_2__["AuthGuard"]] },
-            { path: 'my-farmlands', component: _farmer_components_my_farmalnds_my_farmalnds_component__WEBPACK_IMPORTED_MODULE_15__["MyFarmalndsComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_2__["AuthGuard"]] }
+            { path: 'home', component: _farmer_components_home_home_component__WEBPACK_IMPORTED_MODULE_17__["HomeComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_4__["AuthGuard"]] },
+            { path: 'profile', component: _farmer_components_profile_profile_component__WEBPACK_IMPORTED_MODULE_16__["ProfileComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_4__["AuthGuard"]] },
+            { path: 'my-farmlands', component: _farmer_components_my_farmalnds_my_farmalnds_component__WEBPACK_IMPORTED_MODULE_18__["MyFarmalndsComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_4__["AuthGuard"]] },
+            { path: 'farmer-notification', component: _farmer_components_farmer_notification_farmer_notification_component__WEBPACK_IMPORTED_MODULE_1__["FarmerNotificationComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_4__["AuthGuard"]] }
         ] },
-    { path: 'admin', component: _admin_admin_component__WEBPACK_IMPORTED_MODULE_16__["AdminComponent"],
+    { path: 'admin', component: _admin_admin_component__WEBPACK_IMPORTED_MODULE_19__["AdminComponent"],
         children: [
             { path: '', redirectTo: 'farmer-list', pathMatch: 'full' },
-            { path: 'farmer-list', component: _admin_components_farmers_list_farmers_list_component__WEBPACK_IMPORTED_MODULE_19__["FarmersListComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_2__["AuthGuard"], _common_guards_role_guard_guard__WEBPACK_IMPORTED_MODULE_3__["RoleGuardGuard"]] },
-            { path: 'add-crop', component: _admin_components_add_crop_add_crop_component__WEBPACK_IMPORTED_MODULE_17__["AddCropComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_2__["AuthGuard"], _common_guards_role_guard_guard__WEBPACK_IMPORTED_MODULE_3__["RoleGuardGuard"]] },
-            { path: 'farmland-registration', component: _admin_components_farmland_registration_farmland_registration_component__WEBPACK_IMPORTED_MODULE_18__["FarmlandRegistrationComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_2__["AuthGuard"], _common_guards_role_guard_guard__WEBPACK_IMPORTED_MODULE_3__["RoleGuardGuard"]] }
+            { path: 'farmer-list', component: _admin_components_farmers_list_farmers_list_component__WEBPACK_IMPORTED_MODULE_22__["FarmersListComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_4__["AuthGuard"], _common_guards_role_guard_guard__WEBPACK_IMPORTED_MODULE_5__["RoleGuardGuard"]] },
+            { path: 'add-crop', component: _admin_components_add_crop_add_crop_component__WEBPACK_IMPORTED_MODULE_20__["AddCropComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_4__["AuthGuard"], _common_guards_role_guard_guard__WEBPACK_IMPORTED_MODULE_5__["RoleGuardGuard"]] },
+            { path: 'farmland-registration', component: _admin_components_farmland_registration_farmland_registration_component__WEBPACK_IMPORTED_MODULE_21__["FarmlandRegistrationComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_4__["AuthGuard"], _common_guards_role_guard_guard__WEBPACK_IMPORTED_MODULE_5__["RoleGuardGuard"]] },
+            { path: 'admin-notification', component: _admin_components_admin_notification_admin_notification_component__WEBPACK_IMPORTED_MODULE_0__["AdminNotificationComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_4__["AuthGuard"], _common_guards_role_guard_guard__WEBPACK_IMPORTED_MODULE_5__["RoleGuardGuard"]] }
         ] },
-    { path: '404', component: _common_page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_4__["PageNotFoundComponent"] },
+    { path: '404', component: _common_page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_6__["PageNotFoundComponent"] },
     { path: '**', redirectTo: '/404' }
 ];
 let AppRoutingModule = class AppRoutingModule {
 };
 AppRoutingModule = __decorate([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
-        imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(appRoutes)],
-        exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
+        imports: [_angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"].forRoot(appRoutes)],
+        exports: [_angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"]]
     })
 ], AppRoutingModule);
 
@@ -546,7 +626,7 @@ this.router.events
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\nfooter .container{\r\n  background: none !important;\r\n  margin-bottom: 1em;\r\n}\r\nfooter .container p{\r\n  color: #2A66A7 !important;\r\n}\r\n"
+module.exports = "footer .container{\r\n  background: none !important;\r\n  margin-bottom: 1em;\r\n}\r\nfooter .container p{\r\n  color: #2A66A7 !important;\r\n}\r\n"
 
 /***/ }),
 
@@ -557,7 +637,7 @@ module.exports = "\r\nfooter .container{\r\n  background: none !important;\r\n  
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-navbar> </app-navbar>\r\n    <div class=\"container\">\r\n        <router-outlet></router-outlet>\r\n      </div>\r\n   <footer class=\"container\" >\r\n        <p class=\"text-center\" >&copy; 2018 - Addis Ababa Institute of Technology. All Rights Reserved.</p>\r\n    </footer>\r\n"
+module.exports = "<app-navbar> </app-navbar>\r\n    <div class=\"container\">\r\n        <router-outlet></router-outlet>\r\n      </div>\r\n\r\n\r\n\r\n      <br><br><br><br><br><br><br><br><br><br>\r\n   <footer class=\"container\" >\r\n        <p class=\"text-center\" >&copy; 2018 - Addis Ababa Institute of Technology. All Rights Reserved.</p>\r\n    </footer>\r\n"
 
 /***/ }),
 
@@ -877,7 +957,7 @@ module.exports = "nav{\r\n    color: black;\r\n    font-family:Typonine Mono Reg
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-md navbar-dark bg-dark\">\r\n   <!-- <a *ngIf=\"!authService.loggedIn()\" class=\"navbar-brand\" href=\"#\"><img src=\"../../../assets/aaitLogo.png\" style=\"height:100px; margin-left:10em\"></a>-->\r\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarsExampleDefault\" aria-controls=\"navbarsExampleDefault\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n      <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n    <div class=\"collapse navbar-collapse\" id=\"navbarsExampleDefault\">\r\n      <ul class=\"navbar-nav mr-auto\">\r\n        <li class=\"nav-item\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a class=\"nav-link\" [routerLink]=\"['/gust']\">SmartFarming <span></span></a>\r\n        </li>\r\n      </ul>\r\n      <ul class=\"navbar-nav ml-auto\">\r\n\r\n                           <!-- Gust navigation Component -->\r\n\r\n            <li *ngIf=\"!authService.loggedIn()\" class=\"nav-item\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n                <a class=\"nav-link\" [routerLink]=\"['gust/about-us']\">About-us <span></span></a>\r\n              </li>\r\n              <li *ngIf=\"!authService.loggedIn()\" class=\"nav-item\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n              <a class=\"nav-link\" [routerLink]=\"['gust/farmlands']\">Farmlands <span></span></a>\r\n            </li>\r\n            <li *ngIf=\"!authService.loggedIn()\" class=\"nav-item\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n                <a class=\"nav-link\" [routerLink]=\"['gust/crops']\">Crops <span></span></a>\r\n              </li>\r\n              <li *ngIf=\"!authService.loggedIn()\" class=\"nav-item\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n                  <a class=\"nav-link\" [routerLink]=\"['gust/contact-us']\">Contact-us <span></span></a>\r\n                </li>\r\n\r\n\r\n                        <!-- Farmer navigation Component && authService.isAdmin() -->\r\n\r\n        <li *ngIf=\"authService.loggedIn() && !authService.isAdmin()\" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a class=\"nav-link\" [routerLink]=\"['farmers/home']\">Home </a>\r\n        </li>\r\n        <li *ngIf=\"authService.loggedIn() && !authService.isAdmin()\" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a class=\"nav-link\" [routerLink]=\"['farmers/profile']\">Profile </a>\r\n        </li>\r\n        <li *ngIf=\"authService.loggedIn() && !authService.isAdmin()\" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a class=\"nav-link\" [routerLink]=\"['farmers/my-farmlands']\">My farmlands</a>\r\n        </li>\r\n        <li *ngIf=\"authService.loggedIn() && !authService.isAdmin()\" class=\"nav-item\" >\r\n          <a class=\"nav-link\" (click)=\"onClickLogout()\" href=\"#\">Logout</a>\r\n        </li>\r\n\r\n\r\n                              <!-- Admin navigation Component                && authService.isAdmin()        -->\r\n\r\n\r\n        <li *ngIf=\"authService.loggedIn() && authService.isAdmin()\" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a class=\"nav-link\" [routerLink]=\"['admin/farmer-list']\">Farmers </a>\r\n        </li>\r\n        <li *ngIf=\"authService.loggedIn() && authService.isAdmin()\" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a class=\"nav-link\" [routerLink]=\"['admin/farmland-registration']\">Add Farmland</a>\r\n          <li *ngIf=\"authService.loggedIn() && authService.isAdmin() \" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n            <a class=\"nav-link\" [routerLink]=\"['admin/add-crop']\">Add Crop</a>\r\n        </li>\r\n        <li *ngIf=\"authService.loggedIn() && authService.isAdmin()\" class=\"nav-item\">\r\n          <a class=\"nav-link\" (click)=\"onClickLogout()\"  href=\"#\">Logout</a>\r\n        </li>\r\n      </ul>\r\n    </div>\r\n  </nav>\r\n"
+module.exports = "<nav class=\"navbar navbar-expand-md navbar-dark bg-dark\">\r\n   <!-- <a *ngIf=\"!authService.loggedIn()\" class=\"navbar-brand\" href=\"#\"><img src=\"../../../assets/aaitLogo.png\" style=\"height:100px; margin-left:10em\"></a>-->\r\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarsExampleDefault\" aria-controls=\"navbarsExampleDefault\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n      <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n    <div class=\"collapse navbar-collapse\" id=\"navbarsExampleDefault\">\r\n      <ul class=\"navbar-nav mr-auto\">\r\n        <li *ngIf=\"!authService.loggedIn()\" class=\"nav-item\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a class=\"nav-link\" [routerLink]=\"['/gust']\">Smart Farming <span></span></a>\r\n          </li>\r\n          <li *ngIf=\"authService.loggedIn() && !authService.isAdmin()\" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n              <a class=\"nav-link\" [routerLink]=\"['farmers/home']\">Home </a>\r\n            </li>\r\n              <li *ngIf=\"authService.loggedIn() && authService.isAdmin() \" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n                  <a class=\"nav-link\" [routerLink]=\"['admin/admin-notification']\">Notifications</a>\r\n            </li>\r\n\r\n      </ul>\r\n      <ul class=\"navbar-nav ml-auto\">\r\n\r\n                           <!-- Gust navigation Component -->\r\n\r\n            <li *ngIf=\"!authService.loggedIn()\" class=\"nav-item\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n                <a class=\"nav-link\" [routerLink]=\"['gust/about-us']\">About-us <span></span></a>\r\n              </li>\r\n              <li *ngIf=\"!authService.loggedIn()\" class=\"nav-item\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n              <a class=\"nav-link\" [routerLink]=\"['gust/farmlands']\">Farmlands <span></span></a>\r\n            </li>\r\n            <li *ngIf=\"!authService.loggedIn()\" class=\"nav-item\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n                <a class=\"nav-link\" [routerLink]=\"['gust/crops']\">Crops <span></span></a>\r\n              </li>\r\n              <li *ngIf=\"!authService.loggedIn()\" class=\"nav-item\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n                  <a class=\"nav-link\" [routerLink]=\"['gust/contact-us']\">Contact-us <span></span></a>\r\n                </li>\r\n\r\n\r\n                        <!-- Farmer navigation Component && authService.isAdmin() -->\r\n\r\n\r\n        <li *ngIf=\"authService.loggedIn() && !authService.isAdmin()\" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a class=\"nav-link\" [routerLink]=\"['farmers/profile']\">My Profile </a>\r\n        </li>\r\n        <li *ngIf=\"authService.loggedIn() && authService.isAdmin() \" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n            <a class=\"nav-link\" [routerLink]=\"['farmer/farmer-notification']\">Notifications</a>\r\n      </li>\r\n        <li *ngIf=\"authService.loggedIn() && !authService.isAdmin()\" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a class=\"nav-link\" [routerLink]=\"['farmers/my-farmlands']\">My farmlands </a>\r\n        </li>\r\n        <li *ngIf=\"authService.loggedIn() && !authService.isAdmin()\" class=\"dropdown\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"true\"> <span class=\"nav-label\">Services</span></a>\r\n          <ul class=\"dropdown-menu\">\r\n            <li *ngIf=\"authService.loggedIn() && !authService.isAdmin()\" class=\"nav-item\">\r\n              <a class=\"nav-link\" [routerLink]=\"['farmers/my-farmlands']\">My farmlands</a>\r\n            </li>\r\n            <li *ngIf=\"authService.loggedIn() && !authService.isAdmin()\"  class=\"nav-item\" >\r\n              <a class=\"nav-link\" [routerLink]=\"['/gust/farmlands']\"> Free Lands <span></span></a>\r\n            </li>\r\n            <li *ngIf=\"authService.loggedIn() && !authService.isAdmin()\"  class=\"nav-item\" >\r\n              <a class=\"nav-link\" [routerLink]=\"['/gust/crops']\"> Suggested Crops </a>\r\n            </li>\r\n          </ul>\r\n      </li>\r\n\r\n        <li *ngIf=\"authService.loggedIn() && !authService.isAdmin()\" class=\"nav-item\" >\r\n          <a class=\"nav-link\" (click)=\"onClickLogout()\">Logout</a>\r\n        </li>\r\n\r\n\r\n                              <!-- Admin navigation Component       && authService.isAdmin()        -->\r\n\r\n\r\n        <li *ngIf=\"authService.loggedIn() && authService.isAdmin()\" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a class=\"nav-link\" [routerLink]=\"['admin/farmer-list']\">Farmers </a>\r\n        </li>\r\n        <li *ngIf=\"authService.loggedIn() && authService.isAdmin()\" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a class=\"nav-link\" [routerLink]=\"['admin/farmland-registration']\">Add Farmland</a>\r\n          <li *ngIf=\"authService.loggedIn() && authService.isAdmin() \" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n            <a class=\"nav-link\" [routerLink]=\"['admin/add-crop']\">Add Crop</a>\r\n        </li>\r\n        <li *ngIf=\"authService.loggedIn() && authService.isAdmin()\" class=\"nav-item\">\r\n          <a class=\"nav-link\" (click)=\"onClickLogout()\">Logout</a>\r\n        </li>\r\n      </ul>\r\n    </div>\r\n  </nav>\r\n\r\n\r\n\r\n\r\n<!--\r\n  <ul class=\"nav navbar-nav\">\r\n    <li class=\"dropdown\">\r\n        <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"true\"> <span class=\"nav-label\">Services</span> <span class=\"caret\"></span></a>\r\n        <ul class=\"dropdown-menu\">\r\n            <li><a href=\"#\">Service A</a></li>\r\n            <li><a href=\"#\">Service B</a></li>\r\n        </ul>\r\n    </li>\r\n</ul> -->\r\n"
 
 /***/ }),
 
@@ -894,8 +974,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/auth.service */ "./src/app/common/services/auth.service.ts");
-/* harmony import */ var angular2_flash_messages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! angular2-flash-messages */ "./node_modules/angular2-flash-messages/module/index.js");
-/* harmony import */ var angular2_flash_messages__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(angular2_flash_messages__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _services_notification_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/notification.service */ "./src/app/common/services/notification.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -911,17 +990,15 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 // import { ViewEncapsulation } from '@angular/core';
 let NavbarComponent = class NavbarComponent {
-    constructor(authService, router, flashMessage) {
+    constructor(authService, router, notify) {
         this.authService = authService;
         this.router = router;
-        this.flashMessage = flashMessage;
+        this.notify = notify;
     }
     ngOnInit() { }
     onClickLogout() {
         this.authService.logout();
-        this.flashMessage.show('You are logged out', {
-            cssClass: 'alert-success', timeout: 3000
-        });
+        this.notify.success('You are logged out');
         this.router.navigate(['/gust/welcome']);
         return false;
     }
@@ -935,7 +1012,7 @@ NavbarComponent = __decorate([
     }),
     __metadata("design:paramtypes", [_services_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"],
         _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
-        angular2_flash_messages__WEBPACK_IMPORTED_MODULE_3__["FlashMessagesService"]])
+        _services_notification_service__WEBPACK_IMPORTED_MODULE_3__["NotificationServiceService"]])
 ], NavbarComponent);
 
 
@@ -1036,6 +1113,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 let AuthService = class AuthService {
     constructor(http) {
         this.http = http;
+        this.term = false;
         //  this.isDev = true;  // Change to false before deployment
     }
     // ...............  Guest HTTP Requiest ...
@@ -1115,7 +1193,7 @@ let AuthService = class AuthService {
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(res => res.json()));
     }
     getUserByPassport(passport) {
-        console.log(passport);
+        //  console.log(passport);
         const headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
         headers.append('Content-Type', 'application/json');
         return this.http.get(`users/${encodeURIComponent(passport)}`, { headers: headers })
@@ -1163,6 +1241,23 @@ let AuthService = class AuthService {
         else {
             return false;
         }
+    }
+    checkTermsAndService(term) {
+        if (term) {
+            this.term = true;
+        }
+    }
+    getAdminNotification() {
+        const headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(`users/admin-notification`, { headers: headers })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(res => res.json()));
+    }
+    getUserNotification() {
+        const headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(`users/user-notification`, { headers: headers })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(res => res.json()));
     }
 };
 AuthService = __decorate([
@@ -1441,6 +1536,74 @@ UserService = __decorate([
 
 /***/ }),
 
+/***/ "./src/app/farmer/components/farmer-notification/farmer-notification.component.css":
+/*!*****************************************************************************************!*\
+  !*** ./src/app/farmer/components/farmer-notification/farmer-notification.component.css ***!
+  \*****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/farmer/components/farmer-notification/farmer-notification.component.html":
+/*!******************************************************************************************!*\
+  !*** ./src/app/farmer/components/farmer-notification/farmer-notification.component.html ***!
+  \******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<!-- <p>\r\n  <span matBadge=\"4\" matBadgeOverlap=\"false\">Text with a badge</span>\r\n</p>\r\n\r\n<p>\r\n  Button with a badge on the left\r\n  <button mat-raised-button color=\"primary\"\r\n      matBadge=\"8\" matBadgePosition=\"before\" matBadgeColor=\"accent\">\r\n    Action\r\n  </button>\r\n</p>\r\n\r\n<p>\r\n  Icon with a badge\r\n  <mat-icon matBadge=\"15\" matBadgeColor=\"warn\">home</mat-icon>\r\n    <span class=\"cdk-visually-hidden\">\r\n      Example with a home icon with overlaid badge showing the number 15\r\n    </span>\r\n</p>\r\n -->\r\n <div *ngFor = \"let notfication of user_notification\">\r\n    <li>{{notfication}}</li>\r\n </div>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/farmer/components/farmer-notification/farmer-notification.component.ts":
+/*!****************************************************************************************!*\
+  !*** ./src/app/farmer/components/farmer-notification/farmer-notification.component.ts ***!
+  \****************************************************************************************/
+/*! exports provided: FarmerNotificationComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FarmerNotificationComponent", function() { return FarmerNotificationComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var app_common_services_auth_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/common/services/auth.service */ "./src/app/common/services/auth.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+let FarmerNotificationComponent = class FarmerNotificationComponent {
+    constructor(authService) {
+        this.authService = authService;
+    }
+    ngOnInit() {
+        this.authService.getUserNotification().subscribe(data => {
+            this.user_notification = data;
+        });
+    }
+};
+FarmerNotificationComponent = __decorate([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+        selector: 'app-farmer-notification',
+        template: __webpack_require__(/*! ./farmer-notification.component.html */ "./src/app/farmer/components/farmer-notification/farmer-notification.component.html"),
+        styles: [__webpack_require__(/*! ./farmer-notification.component.css */ "./src/app/farmer/components/farmer-notification/farmer-notification.component.css")]
+    }),
+    __metadata("design:paramtypes", [app_common_services_auth_service__WEBPACK_IMPORTED_MODULE_1__["AuthService"]])
+], FarmerNotificationComponent);
+
+
+
+/***/ }),
+
 /***/ "./src/app/farmer/components/home/home.component.css":
 /*!***********************************************************!*\
   !*** ./src/app/farmer/components/home/home.component.css ***!
@@ -1521,7 +1684,7 @@ HomeComponent = __decorate([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".header-tab{\r\n  margin-top: 1em;\r\n  margin-bottom: 3em;\r\n}\r\nagm-map {\r\n  height: 300px;\r\n}\r\n.crop-data{\r\npadding-left: 0.5em;\r\npadding-top: 0.5em;\r\nwidth: 100%;\r\nmargin: 0 auto;\r\nalign-content: center;\r\n}\r\n.col-md-6 img{\r\nwidth: 100%;\r\nheight: 100;\r\n}\r\nh3{\r\n  font-weight: bold;\r\n}\r\n.table{\r\nfont-size: 1em;\r\n}\r\n.button{\r\nbackground: green;\r\ntext-align: center;\r\nfont-size: 16px;\r\nwidth: 400%;\r\nheight: 100%;\r\ncolor: white;\r\n}\r\n.farmland{\r\nmargin: 0 auto 50px;\r\n}\r\n.form{\r\n  padding-left: 200px;\r\n}\r\n\r\n"
+module.exports = ".header-tab{\r\n  margin-top: 1em;\r\n  margin-bottom: 3em;\r\n}\r\nagm-map {\r\n  height: 300px;\r\n}\r\n.crop-data{\r\npadding-left: 0.5em;\r\npadding-top: 0.5em;\r\nwidth: 100%;\r\nmargin: 0 auto;\r\nalign-content: center;\r\n}\r\n.col-md-6 img{\r\nwidth: 100%;\r\nheight: 100;\r\n}\r\nh3{\r\n  font-weight: bold;\r\n}\r\n.table{\r\nfont-size: 1em;\r\n}\r\n.button{\r\nbackground: green;\r\ntext-align: center;\r\nfont-size: 16px;\r\nwidth: 400%;\r\nheight: 100%;\r\ncolor: white;\r\n}\r\n.farmland{\r\nmargin: 0 auto 50px;\r\n}\r\n.form{\r\n  padding-left: 200px;\r\n}\r\n.suggest h2{\r\nfont-family: Georgia, 'Times New Roman', Times, serif;\r\nfont-style: italic;\r\nfont-weight: bolder;\r\ncolor:red;\r\nfloat: left;\r\n}\r\n.suggest span span{\r\nfont-weight: bolder;\r\nfont-family: Georgia, 'Times New Roman', Times, serif;\r\nfont-style: normal;\r\npadding: 1.8em;\r\ncolor:green;\r\n}\r\n"
 
 /***/ }),
 
@@ -1532,7 +1695,7 @@ module.exports = ".header-tab{\r\n  margin-top: 1em;\r\n  margin-bottom: 3em;\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<div class=\"header\">\r\n    <h1 (click) = \"showSesnorData()\" class=\"text-center\">My farmlands  </h1>\r\n  </div>\r\n  <hr style=\"width: 100%; border: green 4px double \"/>\r\n  <div *ngFor = \"let farmland of farmlands\">\r\n  <div class=\"row header-tab\">\r\n      <ul class=\"nav nav-tabs\" id=\"myTab\" role=\"tablist\">\r\n          <li class=\"nav-item\" (click) = \"basic()\" >\r\n              <a class=\"nav-link\" id=\"basic_ifno\" data-toggle=\"tab\" href=\"#basic_info\" role=\"tab\" aria-controls=\"basic_info\" aria-selected=\"true\">Basic information</a>\r\n              </li>\r\n      <li class=\"nav-item\"  (click) = \"sensorData()\">\r\n      <a class=\"nav-link active\" id=\"home-tab\" data-toggle=\"tab\" href=\"#soil\" role=\"tab\" aria-controls=\"soil\" aria-selected=\"fal\">Data from sensors</a>\r\n      </li>\r\n      <li class=\"nav-item\"  (click) = \"weatherEnv()\">\r\n      <a class=\"nav-link\" id=\"weather-tab\" data-toggle=\"tab\" href=\"#weather\" role=\"tab\" aria-controls=\"weather\" aria-selected=\"false\">Enviromental Weather</a>\r\n      </li>\r\n      </ul>\r\n      </div>\r\n\r\n    <div class=\"container\" *ngIf = \"basicInfo\">\r\n  <div class=\"row farmland\" >\r\n      <div class=\"tab-content basic_ifno\" id=\"basic_ifno\">\r\n          <div class=\"tab-pane fade show active\" id=\"basic_info\" role=\"tabpanel\" aria-labelledby=\"basic_info-tab\">\r\n    <div class=\"col-md-5\" >\r\n      <agm-map [latitude]=\"lat\" [longitude]=\"long\">\r\n          <agm-marker [latitude]=\"lat\" [longitude]=\"long\"></agm-marker>\r\n        </agm-map>\r\n      </div>\r\n          <div class=\"col-md-7 crop-data\" >\r\n              <table class=\"\" cellpadding=\"3\" style=\"float: left\">\r\n                  <tr>\r\n                    <td width=\"40px;\" style= \"padding-right:.5em\"><strong> Descriptions </strong></td>\r\n                    <td width=\"100%;\"> {{farmland.farmland_description}} </td>\r\n                </tr>\r\n                <tr>\r\n                <td>&nbsp;</td>\r\n                <td>&nbsp;</td>\r\n            </tr>\r\n            <tr>\r\n              <td width=\"40px;\" style= \"padding-right:.5em\"><strong> Descriptions </strong></td>\r\n              <td width=\"100%;\"> {{farmland.farmland_experiance}} </td>\r\n          </tr>\r\n              <tr>\r\n                  <td>&nbsp;</td>\r\n                  <td>&nbsp;</td>\r\n              </tr>\r\n              <tr>\r\n                  <td width=\"100px;\"><strong> Location </strong></td>\r\n                  <td width=\"200px;\"> {{farmland.physical_address}} </td>\r\n              </tr>\r\n              <tr>\r\n                  <td>&nbsp;</td>\r\n              </tr>\r\n              <tr>\r\n                  <td width=\"100px;\"><strong> Area in hectar </strong></td>\r\n                  <td width=\"200px;\"> {{farmland.farmland_area}} </td>\r\n              </tr>\r\n              <tr>\r\n                  <td>&nbsp;</td>\r\n              </tr>\r\n              <tr>\r\n                  <td width=\"100px;\"><strong>Soil Type </strong></td>\r\n                  <td width=\"200px;\"> {{farmland.soil_type}} </td>\r\n              </tr>\r\n              <tr>\r\n                  <td>&nbsp;</td>\r\n              </tr>\r\n            </table>\r\n          </div>\r\n          </div>\r\n  </div>\r\n  </div>\r\n</div>\r\n\r\n <div class=\"container\" *ngIf = \"sensor\">\r\n   <div class=\"row\">\r\n  <div class=\"tab-content home-tab \" id=\"home\">\r\n  <div class=\"tab-pane fade \" id=\"soil\" role=\"tabpanel\" aria-labelledby=\"soil-tab\">\r\n      <table class=\"table table-bordered\">\r\n      <thead>\r\n      <tr>\r\n      <th scope=\"col\">Time measured</th>\r\n      <th scope=\"col\">Soil Temprature</th>\r\n      <th scope=\"col\">Soil Moisture</th>\r\n      <th scope=\"col\">PH Level</th>\r\n      <th scope=\"col\">Light Intensity</th>\r\n      <th scope=\"col\">Pump Status</th>\r\n      </tr>\r\n      </thead>\r\n      <tbody>\r\n      <tr *ngFor = \"let a of farmland.embedded_system\">\r\n      <td>{{a.measured_at}}</td>\r\n      <td>{{a.soil_temprature}}</td>\r\n      <td>{{a.soil_moisture}}</td>\r\n      <td>{{a.soil_phLevel}}</td>\r\n      <td>{{a.light_intensity}}</td>\r\n      <td>{{a.motor_on}}</td>\r\n      </tr>\r\n      </tbody>\r\n      </table>\r\n      </div>\r\n </div>\r\n  </div>\r\n</div>\r\n\r\n<div class=\"container\" *ngIf = \"environment\">\r\n    <div class=\"row\">\r\n   <div class=\"tab-content weather-tab\" id=\"weather\">\r\n  <div class=\"tab-pane fade\" id=\"weather\" role=\"tabpanel\" aria-labelledby=\"weather-tab\">\r\n  <table class=\"table table-bordered\">\r\n  <thead>\r\n  <tr>\r\n  <th scope=\"col\">Date</th>\r\n  <th scope=\"col\">Temprature</th>\r\n  <th scope=\"col\">Humidity</th>\r\n  <th scope=\"col\">Pressure</th>\r\n  <th scope=\"col\">Wind speed</th>\r\n  <th scope=\"col\">Description</th>\r\n  </tr>\r\n  </thead>\r\n  <tbody *ngFor = \"let b of farmland.enviromental_weather\">\r\n  <tr>\r\n  <td>{{weather.date}}</td>\r\n  <td>{{weather.temperature}}</td>\r\n  <td>{{weather.humidity}}</td>\r\n  <td>{{weather.pressure}}</td>\r\n  <td>{{weather.wind_speed}}</td>\r\n  <td>{{weather.description}}</td>\r\n  </tr>\r\n  </tbody>\r\n  </table>\r\n  </div>\r\n</div>\r\n</div>\r\n</div>\r\n\r\n\r\n  </div>\r\n\r\n"
+module.exports = "\r\n<div class=\"header\">\r\n    <h1 (click) = \"showSesnorData()\" class=\"text-center\">My farmlands  </h1>\r\n  </div>\r\n  <hr style=\"width: 100%; border: green 4px double \"/>\r\n  <div *ngFor = \"let farmland of farmlands\">\r\n  <div class=\"row header-tab\">\r\n      <ul class=\"nav nav-tabs\" id=\"myTab\" role=\"tablist\">\r\n          <li class=\"nav-item\" (click) = \"basic()\" >\r\n              <a class=\"nav-link\" id=\"basic_ifno\" data-toggle=\"tab\" href=\"#basic_info\" role=\"tab\" aria-controls=\"basic_info\" aria-selected=\"true\">Basic information</a>\r\n              </li>\r\n      <li class=\"nav-item\"  (click) = \"sensorData()\">\r\n      <a class=\"nav-link active\" id=\"home-tab\" data-toggle=\"tab\" href=\"#soil\" role=\"tab\" aria-controls=\"soil\" aria-selected=\"false\">Data from sensors</a>\r\n      </li>\r\n      <li class=\"nav-item\" (click) = \"weatherEnv()\">\r\n        <a class=\"nav-link active\" id=\"weather-tab\" data-toggle=\"tab\" href=\"#weather\" role=\"tab\" aria-controls=\"weather\" aria-selected=\"false\">Enviromental Weather</a>\r\n        </li>\r\n      </ul>\r\n      </div>\r\n    <div class=\"container\" *ngIf = \"basicInfo\">\r\n  <div class=\"row farmland\" >\r\n      <div class=\"tab-content basic_ifno\" id=\"basic_ifno\">\r\n          <div class=\"tab-pane fade show active\" id=\"basic_info\" role=\"tabpanel\" aria-labelledby=\"basic_info-tab\">\r\n    <div class=\"col-md-7\" >\r\n      <agm-map [latitude]=\"lat\" [longitude]=\"long\">\r\n          <agm-marker [latitude]=\"lat\" [longitude]=\"long\"></agm-marker>\r\n        </agm-map>\r\n      </div>\r\n          <div class=\"col-md-7 crop-data\" >\r\n              <table class=\"\" cellpadding=\"3\" style=\"float: left\">\r\n                  <tr>\r\n                    <td width=\"40px;\" style= \"padding-right:.5em\"><strong> Descriptions </strong></td>\r\n                    <td width=\"100%;\"> {{farmland.farmland_description}} </td>\r\n                </tr>\r\n                <tr>\r\n                <td>&nbsp;</td>\r\n                <td>&nbsp;</td>\r\n            </tr>\r\n            <tr>\r\n              <td width=\"40px;\" style= \"padding-right:.5em\"><strong> Descriptions </strong></td>\r\n              <td width=\"100%;\"> {{farmland.farmland_experiance}} </td>\r\n          </tr>\r\n              <tr>\r\n                  <td>&nbsp;</td>\r\n                  <td>&nbsp;</td>\r\n              </tr>\r\n              <tr>\r\n                  <td width=\"100px;\"><strong> Location </strong></td>\r\n                  <td width=\"200px;\"> {{farmland.physical_address}} </td>\r\n              </tr>\r\n              <tr>\r\n                  <td>&nbsp;</td>\r\n              </tr>\r\n              <tr>\r\n                  <td width=\"100px;\"><strong> Area </strong></td>\r\n                  <td width=\"200px;\"> {{farmland.farmland_area}} <span>hectar</span> </td>\r\n              </tr>\r\n              <tr>\r\n                  <td>&nbsp;</td>\r\n              </tr>\r\n              <tr>\r\n                  <td width=\"100px;\"><strong>Soil Type </strong></td>\r\n                  <td width=\"200px;\"> {{farmland.soil_type}} </td>\r\n              </tr>\r\n              <tr>\r\n                  <td>&nbsp;</td>\r\n              </tr>\r\n            </table>\r\n          </div>\r\n          </div>\r\n  </div>\r\n  </div>\r\n</div>\r\n\r\n <div class=\"container\" *ngIf = \"sensor\">\r\n   <div class=\"row\">\r\n  <div class=\"tab-content home-tab \" id=\"home\">\r\n  <div class=\"tab-pane fade \" id=\"soil\" role=\"tabpanel\" aria-labelledby=\"soil-tab\">\r\n      <table style=\"width: 100%;float: left;\" class=\"table table-bordered\">\r\n      <thead>\r\n      <tr>\r\n      <th scope=\"col\">Time measured</th>\r\n      <th scope=\"col\">Soil Temprature</th>\r\n      <th scope=\"col\">Soil Moisture</th>\r\n      <th scope=\"col\">PH Level</th>\r\n      <th scope=\"col\">Light Intensity</th>\r\n      <th scope=\"col\">Pump Status</th>\r\n      </tr>\r\n      </thead>\r\n      <tbody>\r\n      <tr *ngFor = \"let a of farmland.embedded_system\">\r\n      <td>{{a.measured_at}}</td>\r\n      <td>{{a.soil_temprature}}</td>\r\n      <td>{{a.soil_moisture}}</td>\r\n      <td>{{a.soil_phLevel}}</td>\r\n      <td>{{a.light_intensity}}</td>\r\n      <td>{{a.motor_on}}</td>\r\n      </tr>\r\n      </tbody>\r\n      </table>\r\n      <br><br> <br> <br><br> <br>\r\n      <div class=\"suggest\">\r\n        <h2>Suggested Crops:  </h2>\r\n        <span *ngFor = \"let sug of farmland.recCrop\" >\r\n          <span>{{sug}}</span>\r\n        </span>\r\n      </div>\r\n      <!-- <div style=\"display: block\">\r\n        <canvas mdbChart\r\n            [chartType]=\"SensorChartType\"\r\n            [datasets]=\"weatherDataSet\"\r\n            [labels]=\"sensorChartLabels\"\r\n            [colors]=\"chartColors\"\r\n            [options]=\"chartOptions\"\r\n            [legend]=\"true\"\r\n            (chartHover)=\"chartHovered($event)\"\r\n            (chartClick)=\"chartClicked($event)\">\r\n        </canvas>\r\n      </div> -->\r\n      </div>\r\n </div>\r\n  </div>\r\n</div>\r\n\r\n <div class=\"container\" *ngIf = \"environment\">\r\n    <div class=\"row\">\r\n   <div class=\"tab-content weather-tab\" id=\"weather\">\r\n  <div class=\"tab-pane fade\" id=\"weather\" role=\"tabpanel\" aria-labelledby=\"weather-tab\">\r\n  <table class=\"table table-bordered\">\r\n  <thead>\r\n  <tr>\r\n  <th scope=\"col\">Date</th>\r\n  <th scope=\"col\">Temprature</th>\r\n  <th scope=\"col\">Humidity</th>\r\n  <th scope=\"col\">Pressure</th>\r\n  <th scope=\"col\">Wind speed</th>\r\n  <th scope=\"col\">Description</th>\r\n  </tr>\r\n  </thead>\r\n  <tbody *ngFor = \"let b of farmland.enviromental_weather\">\r\n  <tr>\r\n  <td>{{b.date}}</td>\r\n  <td>{{b.temperature}}</td>\r\n  <td>{{b.humidity}}</td>\r\n  <td>{{b.pressure}}</td>\r\n  <td>{{b.wind_speed}}</td>\r\n  <td>{{b.description}}</td>\r\n  </tr>\r\n  </tbody>\r\n  </table>\r\n  </div>\r\n</div>\r\n</div>\r\n</div>\r\n  </div>\r\n\r\n"
 
 /***/ }),
 
@@ -1575,12 +1738,60 @@ let MyFarmalndsComponent = class MyFarmalndsComponent {
         this.basicInfo = true;
         this.sensor = false;
         this.environment = false;
+        this.SensorChartType = 'line';
+        this.weatherChartType = 'line';
+        this.sensorDataSet = [
+            { data: [], label: 'soil Temprature' },
+            { data: [], label: 'soil Moisture' },
+            { data: [], label: 'soil PH Leverl' },
+            { data: [], label: 'Light Intensity' }
+        ];
+        this.weatherDataSet = [
+            { data: [], label: 'Temprature' },
+            { data: [], label: 'Humidity' },
+            { data: [], label: 'Pressure' },
+            { data: [], label: 'wind Speed' }
+        ];
+        this.sensorChartLabels = ['Monday', 'Tuesday', 'Wednesday', 'Thurthday', 'Friday', 'Saterday', 'Sunday'];
+        this.weatherChartLabels = ['Monday', 'Tuesday', 'Wednesday', 'Thurthday', 'Friday', 'Saterday', 'Sunday'];
+        this.chartColors = [
+            {
+                backgroundColor: 'rgba(105, 0, 132, .2)',
+                borderColor: 'rgba(200, 99, 132, .7)',
+                borderWidth: 2,
+            },
+            {
+                backgroundColor: 'rgba(0, 137, 132, .2)',
+                borderColor: 'rgba(0, 10, 130, .7)',
+                borderWidth: 2,
+            }
+        ];
+        this.chartOptions = {
+            responsive: true
+        };
     }
     ngOnInit() {
         const user = JSON.parse(localStorage.getItem('user'));
         this.authService.getMyFarmland(user._id).subscribe(data => {
             this.farmlands = data;
             console.log(this.farmlands);
+            for (const farm of data) {
+                for (const sensor of farm.embedded_system) {
+                    this.sensorDataSet[0].data.push(sensor.soil_temprature);
+                    this.sensorDataSet[1].data.push(sensor.soil_moisture);
+                    this.sensorDataSet[2].data.push(sensor.soil_phLevel);
+                    this.sensorDataSet[3].data.push(sensor.light_intensity);
+                }
+                for (const env of farm.enviromental_weather) {
+                    this.weatherDataSet[0].data.push(env.soil_temprature);
+                    this.weatherDataSet[1].data.push(env.soil_moisture);
+                    this.weatherDataSet[2].data.push(env.soil_phLevel);
+                    this.weatherDataSet[3].data.push(env.light_intensity);
+                }
+                // this.weatherDataSet = farm.enviromental_weather;
+            }
+            console.log(this.sensorDataSet);
+            console.log(this.weatherDataSet);
         });
     }
     showSesnorData() {
@@ -1601,6 +1812,8 @@ let MyFarmalndsComponent = class MyFarmalndsComponent {
         this.sensor = false;
         this.environment = true;
     }
+    chartClicked(e) { }
+    chartHovered(e) { }
 };
 MyFarmalndsComponent = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1802,6 +2015,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_profile_profile_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/profile/profile.component */ "./src/app/farmer/components/profile/profile.component.ts");
 /* harmony import */ var _components_home_home_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/home/home.component */ "./src/app/farmer/components/home/home.component.ts");
 /* harmony import */ var _components_my_farmalnds_my_farmalnds_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/my-farmalnds/my-farmalnds.component */ "./src/app/farmer/components/my-farmalnds/my-farmalnds.component.ts");
+/* harmony import */ var _components_farmer_notification_farmer_notification_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/farmer-notification/farmer-notification.component */ "./src/app/farmer/components/farmer-notification/farmer-notification.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1811,6 +2025,8 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+// For MDB Angular Pro
 
 
 
@@ -1831,14 +2047,15 @@ FarmerModule = __decorate([
             _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatCardModule"],
             _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatDialogModule"],
             _agm_core__WEBPACK_IMPORTED_MODULE_3__["AgmCoreModule"].forRoot({
-                apiKey: 'AIzaSyCDF9nb_A3VLB5oOQDwFZGVWGKWqPmLiuI'
+                apiKey: 'AIzaSyBg5CA94W4rHtjUJnTVKF56fWdvAfKKeSg'
             })
         ],
         declarations: [
             _farmer_component__WEBPACK_IMPORTED_MODULE_5__["FarmerComponent"],
             _components_profile_profile_component__WEBPACK_IMPORTED_MODULE_6__["ProfileComponent"],
             _components_home_home_component__WEBPACK_IMPORTED_MODULE_7__["HomeComponent"],
-            _components_my_farmalnds_my_farmalnds_component__WEBPACK_IMPORTED_MODULE_8__["MyFarmalndsComponent"]
+            _components_my_farmalnds_my_farmalnds_component__WEBPACK_IMPORTED_MODULE_8__["MyFarmalndsComponent"],
+            _components_farmer_notification_farmer_notification_component__WEBPACK_IMPORTED_MODULE_9__["FarmerNotificationComponent"]
         ],
         exports: [
             _farmer_component__WEBPACK_IMPORTED_MODULE_5__["FarmerComponent"],
@@ -1871,7 +2088,7 @@ module.exports = ".separator-type, .title-type, .intro-type, .content-type .intr
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ct-pageWrapper\" id=\"ct-js-wrapper\">\r\n  <section class=\"company-heading intro-type\" id=\"parallax-one\">\r\n     <div class=\"container\">\r\n        <div class=\"row product-title-info\">\r\n           <div class=\"col-md-12\">\r\n              <h1>\r\n                 About Us\r\n              </h1>\r\n           </div>\r\n        </div>\r\n     </div>\r\n     <div class=\"parallax\" id=\"parallax-cta\" style=\"background-image:url('../../../../assets//images/tech.png');\">\r\n        &nbsp;\r\n     </div>\r\n  </section>\r\n  <section class=\"story-section company-sections ct-u-paddingBoth100 paddingBothHalf noTopMobilePadding\" id=\"section\">\r\n     <div class=\"container text-center\">\r\n        <h2>\r\n           WHAT DRIVES US\r\n        </h2>\r\n        <h3>\r\n           Lorem ipsum - dolor\r\n        </h3>\r\n        <div class=\"col-md-8 col-md-offset-2\">\r\n           <div class=\"red-border\">\r\n              &nbsp;\r\n           </div>\r\n           <p class=\"ct-u-size22 ct-u-fontWeight300 marginTop40\">\r\n              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed libero vel ex maximus vulputate nec eu ligula. Vestibulum elementum nisi ut fermentum lobortis. Sed quis iaculis felis.\r\n           </p>\r\n           <!-- <a class=\"ct-u-marginTop60 btn btn-solodev-red btn-fullWidth-sm ct-u-size19\" href=\"#\">Learn More</a> -->\r\n        </div>\r\n     </div>\r\n  </section>\r\n  <!-- <section class=\"culture-section company-sections ct-u-paddingBoth100 paddingBothHalf noTopMobilePadding\">\r\n     <div class=\"container\">\r\n        <div class=\"col-md-8 col-md-offset-2\">\r\n           <h2>\r\n              Etiam varius porttitor\r\n           </h2>\r\n           <h3>\r\n              Vestibulum elementum nisi ut\r\n           </h3>\r\n           <p class=\"ct-u-size22 ct-u-fontWeight300 ct-u-marginBottom60\">\r\n              Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>\r\n              Praesent sed libero vel ex maximus vulputate nec eu ligula. Vestibulum elementum nisi ut fermentum lobortis.\r\n           </p>\r\n        </div>\r\n        <div class=\"row ct-u-paddingBoth20\">\r\n           <div class=\"col-xs-6 col-md-4\">\r\n              <div class=\"company-icons-white\">\r\n                 <i class=\"fa fa-medkit\" aria-hidden=\"true\"></i>\r\n                 <p>\r\n                    LOREM IPSUM\r\n                 </p>\r\n                 <p class=\"company-icons-subtext hidden-xs\">\r\n                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.\r\n                 </p>\r\n              </div>\r\n           </div>\r\n           <div class=\"col-xs-6 col-md-4\">\r\n              <div class=\"company-icons-white\">\r\n                 <i class=\"fa fa-money\" aria-hidden=\"true\"></i>\r\n                 <p>\r\n                    DOLOR SIT AMET\r\n                 </p>\r\n                 <p class=\"company-icons-subtext hidden-xs\">\r\n                    Praesent sed libero vel ex maximus vulputate nec eu ligula.\r\n                 </p>\r\n              </div>\r\n           </div>\r\n           <div class=\"col-xs-6 col-md-4\">\r\n              <div class=\"company-icons-white\">\r\n                 <i class=\"fa fa-clock-o\" aria-hidden=\"true\"></i>\r\n                 <p>\r\n                    SED TRISTIQUE\r\n                 </p>\r\n                 <p class=\"company-icons-subtext hidden-xs\">\r\n                    Vestibulum elementum nisi ut fermentum lobortis.\r\n                 </p>\r\n              </div>\r\n           </div>\r\n        </div>\r\n        <div class=\"row ct-u-paddingBoth20\">\r\n           <div class=\"col-xs-6 col-md-4\">\r\n              <div class=\"company-icons-white\">\r\n                 <i class=\"fa fa-coffee\" aria-hidden=\"true\"></i>\r\n                 <p>\r\n                    SEMPER IPSUM\r\n                 </p>\r\n                 <p class=\"company-icons-subtext hidden-xs\">\r\n                    Nullam bibendum felis non laoreet rutrum.\r\n                 </p>\r\n              </div>\r\n           </div>\r\n           <div class=\"col-xs-6 col-md-4\">\r\n              <div class=\"company-icons-white\">\r\n                 <i class=\"fa fa-gamepad\" aria-hidden=\"true\"></i>\r\n                 <p>\r\n                    NEC MATTIS\r\n                 </p>\r\n                 <p class=\"company-icons-subtext hidden-xs\">\r\n                    Etiam diam mi, lacinia eu sapien in, dapibus sodales erat.\r\n                 </p>\r\n              </div>\r\n           </div>\r\n           <div class=\"col-xs-6 col-md-4\">\r\n              <div class=\"company-icons-white\">\r\n                 <i class=\"fa fa-cutlery\" aria-hidden=\"true\"></i>\r\n                 <p>\r\n                    CRAS MOLLIS\r\n                 </p>\r\n                 <p class=\"company-icons-subtext hidden-xs\">\r\n                    Etiam varius porttitor tellus et aliquet.\r\n                 </p>\r\n              </div>\r\n           </div>\r\n        </div>\r\n        <a class=\"ct-u-marginTop60 btn btn-solodev-red-reversed btn-fullWidth-sm ct-u-size19\" href=\"/\">Ready to Learn More?</a>\r\n     </div>\r\n  </section> -->\r\n  <!--\r\n  <section class=\"customers-section company-sections ct-u-paddingBoth100 paddingBothHalf noTopMobilePadding\">\r\n   <div class=\"container\">\r\n     <div class=\"col-md-8 col-md-offset-2\">\r\n        <h2>\r\n           CUSTOMERS\r\n        </h2>\r\n        <h3>\r\n           Trusted by some of the world&rsquo;s leading brands.\r\n        </h3>\r\n        <p class=\"ct-u-size22 ct-u-fontWeight300 ct-u-marginBottom60 marginTop40\">\r\n           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed libero vel ex maximus vulputate nec eu ligula. Vestibulum elementum nisi ut fermentum lobortis. Sed quis iaculis felis.\r\n        </p>\r\n     </div>\r\n     <div class=\"clearfix\">\r\n        &nbsp;\r\n     </div>\r\n  </div> -->\r\n  <main>\r\n     <div class=\"container ct-u-paddingTop40 ct-u-paddingBottom100\">\r\n        <div class=\"row\">\r\n           <div class=\"col-md-12 ct-content\">\r\n              <section class=\"clients-home\">\r\n                 <div class=\"container\">\r\n                    <div class=\"clients-logos text-center\">\r\n                       <!-- starting row div -->\r\n                       <div class=\"row\">\r\n                          <div class=\"col-md-4 client-logos-repeater\">\r\n                             <a href=\"/path/to/detail/zeina.html\" class=\"Zeina\"><img alt=\"images/logo-zeina.png\" src=\"../../../../assets//images/2.jpg\"></a>\r\n                             <div class=\"logo-title\">\r\n                                <div class=\"displayTable\">\r\n                                   <div class=\"displayTableCell\">\r\n                                      Zeina - 0\r\n                                   </div>\r\n                                </div>\r\n                             </div>\r\n                          </div>\r\n                          <div class=\"col-md-4 client-logos-repeater\">\r\n                             <a href=\"/path/to/detail/logic.html\" class=\"Logic\"><img alt=\"images/logic.png\" src=\"../../../../assets//images/3.jpg\"></a>\r\n                             <div class=\"logo-title\">\r\n                                <div class=\"displayTable\">\r\n                                   <div class=\"displayTableCell\">\r\n                                      Logic\r\n                                   </div>\r\n                                </div>\r\n                             </div>\r\n                          </div>\r\n                          <div class=\"col-md-4 client-logos-repeater\">\r\n                             <a href=\"/path/to/detail/smart.html\" class=\"Smart\"><img alt=\"images/client3.png\" src=\"../../../../assets//images/4.jpg\"></a>\r\n                             <div class=\"logo-title\">\r\n                                <div class=\"displayTable\">\r\n                                   <div class=\"displayTableCell\">\r\n                                      Smart\r\n                                   </div>\r\n                                </div>\r\n                             </div>\r\n                          </div>\r\n                       </div>\r\n                       <div class=\"row\">\r\n                          <div class=\"col-md-4 client-logos-repeater\">\r\n                             <a href=\"/path/to/detail/softtech.html\" class=\"Softtech\"><img alt=\"images/softtech.png\" src=\"../../../../assets//images/5.jpg\"></a>\r\n                             <div class=\"logo-title\">\r\n                                <div class=\"displayTable\">\r\n                                   <div class=\"displayTableCell\">\r\n                                      Softtech\r\n                                   </div>\r\n                                </div>\r\n                             </div>\r\n                          </div>\r\n                          <div class=\"col-md-4 client-logos-repeater\">\r\n                             <a href=\"/path/to/detail/wheel.html\" class=\"Wheel\"><img alt=\"images/logo-target.png\" src=\"../../../../assets//images/6.jpg\"></a>\r\n                             <div class=\"logo-title\">\r\n                                <div class=\"displayTable\">\r\n                                   <div class=\"displayTableCell\">\r\n                                      Wheel\r\n                                   </div>\r\n                                </div>\r\n                             </div>\r\n                          </div>\r\n                          <div class=\"col-md-4 client-logos-repeater\">\r\n                             <a href=\"/path/to/detail/3designs.html\" class=\"3designs\"><img alt=\"images/designx.png\" src=\"../../../../assets//images/et4.jpg\"></a>\r\n                             <div class=\"logo-title\">\r\n                                <div class=\"displayTable\">\r\n                                   <div class=\"displayTableCell\">\r\n                                      3designs\r\n                                   </div>\r\n                                </div>\r\n                             </div>\r\n                          </div>\r\n                       </div>\r\n                       <div class=\"row\">\r\n                          <div class=\"col-md-4 client-logos-repeater\">\r\n                             <a href=\"/path/to/detail/heart.html\" class=\"Heart\"><img alt=\"images/client7.png\" src=\"../../../../assets//images/tech.png\"></a>\r\n                             <div class=\"logo-title\">\r\n                                <div class=\"displayTable\">\r\n                                   <div class=\"displayTableCell\">\r\n                                      Heart\r\n                                   </div>\r\n                                </div>\r\n                             </div>\r\n                          </div>\r\n                          <div class=\"col-md-4 client-logos-repeater\">\r\n                             <a href=\"/path/to/detail/devtech.html\" class=\"Devtech\"><img alt=\"images/devtech.png\" src=\"../../../../assets//images/et1.jpg\"></a>\r\n                             <div class=\"logo-title\">\r\n                                <div class=\"displayTable\">\r\n                                   <div class=\"displayTableCell\">\r\n                                      Devtech\r\n                                   </div>\r\n                                </div>\r\n                             </div>\r\n                          </div>\r\n                          <div class=\"col-md-4 client-logos-repeater\">\r\n                             <a href=\"/path/to/detail/chartz.html\" class=\"Chartz\"><img alt=\"images/chartz.png\" src=\"../../../../assets//images/et2.jpg\"></a>\r\n                             <div class=\"logo-title\">\r\n                                <div class=\"displayTable\">\r\n                                   <div class=\"displayTableCell\">\r\n                                      Chartz\r\n                                   </div>\r\n                                </div>\r\n                             </div>\r\n                          </div>\r\n                       </div>\r\n                       <!-- closing row div -->\r\n                    </div>\r\n                 </div>\r\n              </section>\r\n           </div>\r\n        </div>\r\n     </div>\r\n  </main>\r\n"
+module.exports = "<div class=\"ct-pageWrapper\" id=\"ct-js-wrapper\">\r\n  <section class=\"company-heading intro-type\" id=\"parallax-one\">\r\n     <div class=\"container\">\r\n        <div class=\"row product-title-info\">\r\n           <div class=\"col-md-12\">\r\n              <h1>\r\n                 About Us\r\n              </h1>\r\n           </div>\r\n        </div>\r\n     </div>\r\n     <div class=\"parallax\" id=\"parallax-cta\" style=\"background-image:url('../../../../assets//images/tech.png');\">\r\n        &nbsp;\r\n     </div>\r\n  </section>\r\n  <section class=\"story-section company-sections ct-u-paddingBoth100 paddingBothHalf noTopMobilePadding\" id=\"section\">\r\n     <div class=\"container text-center\">\r\n        <h2>\r\n           WHAT DRIVES US\r\n        </h2>\r\n        <h3>\r\n          Farmland Managament System with Smart Farming\r\n        </h3>\r\n        <div class=\"col-md-8 col-md-offset-2\">\r\n           <div class=\"red-border\">\r\n              &nbsp;\r\n           </div>\r\n           <p class=\"ct-u-size22 ct-u-fontWeight300 marginTop40\">\r\n            In our country Ethiopia, when investors wish to invest in agriculture, they have to contact the government then after the government searches for available farmlands for farming investment. This traditional process costs the commercial farmer and government a lot in terms of time and money. It also makes farmers scared and frustrated in the meanwhile. Once the farmland is given to the investor, there is no way for the government to know if the farmland is being used for intended purpose efficiently or not. These happens because the government doesn’t have any system to pre-register these farmlands areas and make them available for investors to view from anywhere in the world. To overcome this challenge, we will develop a web application to automate farmland leasing system and agreements between the government and commercial farmers. This system also enables the government to easily know and monitor how farmlands is utilized by those farmers then to make appropriate decision\r\n           </p>\r\n\r\n           <p class=\"ct-u-size22 ct-u-fontWeight300 marginTop40\">\r\n            Having efficient farmland management system is not good enough to satisfy food demand in the country.  All farmers have to implement smart farming to increase crop productivity. Manual means of monitoring farmlands’ crops parameter is so exhausting, not efficient and productive. In this project, farmers monitor their crops’ parameters via the same system which they lease the farmland. Crop parameters are constantly updated to the webpage. In addition to updating the webpage the embedded system deployed in the farmland performs some actions depending to the sensor data.\r\n           </p>\r\n           <!-- <a class=\"ct-u-marginTop60 btn btn-solodev-red btn-fullWidth-sm ct-u-size19\" href=\"#\">Learn More</a> -->\r\n        </div>\r\n     </div>\r\n  </section>\r\n  <!-- <section class=\"culture-section company-sections ct-u-paddingBoth100 paddingBothHalf noTopMobilePadding\">\r\n     <div class=\"container\">\r\n        <div class=\"col-md-8 col-md-offset-2\">\r\n           <h2>\r\n              Etiam varius porttitor\r\n           </h2>\r\n           <h3>\r\n              Vestibulum elementum nisi ut\r\n           </h3>\r\n           <p class=\"ct-u-size22 ct-u-fontWeight300 ct-u-marginBottom60\">\r\n              Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>\r\n              Praesent sed libero vel ex maximus vulputate nec eu ligula. Vestibulum elementum nisi ut fermentum lobortis.\r\n           </p>\r\n        </div>\r\n        <div class=\"row ct-u-paddingBoth20\">\r\n           <div class=\"col-xs-6 col-md-4\">\r\n              <div class=\"company-icons-white\">\r\n                 <i class=\"fa fa-medkit\" aria-hidden=\"true\"></i>\r\n                 <p>\r\n                    LOREM IPSUM\r\n                 </p>\r\n                 <p class=\"company-icons-subtext hidden-xs\">\r\n                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.\r\n                 </p>\r\n              </div>\r\n           </div>\r\n           <div class=\"col-xs-6 col-md-4\">\r\n              <div class=\"company-icons-white\">\r\n                 <i class=\"fa fa-money\" aria-hidden=\"true\"></i>\r\n                 <p>\r\n                    DOLOR SIT AMET\r\n                 </p>\r\n                 <p class=\"company-icons-subtext hidden-xs\">\r\n                    Praesent sed libero vel ex maximus vulputate nec eu ligula.\r\n                 </p>\r\n              </div>\r\n           </div>\r\n           <div class=\"col-xs-6 col-md-4\">\r\n              <div class=\"company-icons-white\">\r\n                 <i class=\"fa fa-clock-o\" aria-hidden=\"true\"></i>\r\n                 <p>\r\n                    SED TRISTIQUE\r\n                 </p>\r\n                 <p class=\"company-icons-subtext hidden-xs\">\r\n                    Vestibulum elementum nisi ut fermentum lobortis.\r\n                 </p>\r\n              </div>\r\n           </div>\r\n        </div>\r\n        <div class=\"row ct-u-paddingBoth20\">\r\n           <div class=\"col-xs-6 col-md-4\">\r\n              <div class=\"company-icons-white\">\r\n                 <i class=\"fa fa-coffee\" aria-hidden=\"true\"></i>\r\n                 <p>\r\n                    SEMPER IPSUM\r\n                 </p>\r\n                 <p class=\"company-icons-subtext hidden-xs\">\r\n                    Nullam bibendum felis non laoreet rutrum.\r\n                 </p>\r\n              </div>\r\n           </div>\r\n           <div class=\"col-xs-6 col-md-4\">\r\n              <div class=\"company-icons-white\">\r\n                 <i class=\"fa fa-gamepad\" aria-hidden=\"true\"></i>\r\n                 <p>\r\n                    NEC MATTIS\r\n                 </p>\r\n                 <p class=\"company-icons-subtext hidden-xs\">\r\n                    Etiam diam mi, lacinia eu sapien in, dapibus sodales erat.\r\n                 </p>\r\n              </div>\r\n           </div>\r\n           <div class=\"col-xs-6 col-md-4\">\r\n              <div class=\"company-icons-white\">\r\n                 <i class=\"fa fa-cutlery\" aria-hidden=\"true\"></i>\r\n                 <p>\r\n                    CRAS MOLLIS\r\n                 </p>\r\n                 <p class=\"company-icons-subtext hidden-xs\">\r\n                    Etiam varius porttitor tellus et aliquet.\r\n                 </p>\r\n              </div>\r\n           </div>\r\n        </div>\r\n        <a class=\"ct-u-marginTop60 btn btn-solodev-red-reversed btn-fullWidth-sm ct-u-size19\" href=\"/\">Ready to Learn More?</a>\r\n     </div>\r\n  </section> -->\r\n  <!--\r\n  <section class=\"customers-section company-sections ct-u-paddingBoth100 paddingBothHalf noTopMobilePadding\">\r\n   <div class=\"container\">\r\n     <div class=\"col-md-8 col-md-offset-2\">\r\n        <h2>\r\n           CUSTOMERS\r\n        </h2>\r\n        <h3>\r\n           Trusted by some of the world&rsquo;s leading brands.\r\n        </h3>\r\n        <p class=\"ct-u-size22 ct-u-fontWeight300 ct-u-marginBottom60 marginTop40\">\r\n           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed libero vel ex maximus vulputate nec eu ligula. Vestibulum elementum nisi ut fermentum lobortis. Sed quis iaculis felis.\r\n        </p>\r\n     </div>\r\n     <div class=\"clearfix\">\r\n        &nbsp;\r\n     </div>\r\n  </div> -->\r\n  <main>\r\n     <div class=\"container ct-u-paddingTop40 ct-u-paddingBottom100\">\r\n        <div class=\"row\">\r\n           <div class=\"col-md-12 ct-content\">\r\n              <section class=\"clients-home\">\r\n                 <div class=\"container\">\r\n                    <div class=\"clients-logos text-center\">\r\n                       <!-- starting row div -->\r\n                       <div class=\"row\">\r\n                          <div class=\"col-md-4 client-logos-repeater\">\r\n                             <a href=\"/path/to/detail/zeina.html\" class=\"Zeina\"><img alt=\"images/logo-zeina.png\" src=\"../../../../assets//images/2.jpg\"></a>\r\n                             <div class=\"logo-title\">\r\n                                <div class=\"displayTable\">\r\n                                   <div class=\"displayTableCell\">\r\n                                      Zeina - 0\r\n                                   </div>\r\n                                </div>\r\n                             </div>\r\n                          </div>\r\n                          <div class=\"col-md-4 client-logos-repeater\">\r\n                             <a href=\"/path/to/detail/logic.html\" class=\"Logic\"><img alt=\"images/logic.png\" src=\"../../../../assets//images/3.jpg\"></a>\r\n                             <div class=\"logo-title\">\r\n                                <div class=\"displayTable\">\r\n                                   <div class=\"displayTableCell\">\r\n                                      Logic\r\n                                   </div>\r\n                                </div>\r\n                             </div>\r\n                          </div>\r\n                          <div class=\"col-md-4 client-logos-repeater\">\r\n                             <a href=\"/path/to/detail/smart.html\" class=\"Smart\"><img alt=\"images/client3.png\" src=\"../../../../assets//images/4.jpg\"></a>\r\n                             <div class=\"logo-title\">\r\n                                <div class=\"displayTable\">\r\n                                   <div class=\"displayTableCell\">\r\n                                      Smart\r\n                                   </div>\r\n                                </div>\r\n                             </div>\r\n                          </div>\r\n                       </div>\r\n                       <div class=\"row\">\r\n                          <div class=\"col-md-4 client-logos-repeater\">\r\n                             <a href=\"/path/to/detail/softtech.html\" class=\"Softtech\"><img alt=\"images/softtech.png\" src=\"../../../../assets//images/5.jpg\"></a>\r\n                             <div class=\"logo-title\">\r\n                                <div class=\"displayTable\">\r\n                                   <div class=\"displayTableCell\">\r\n                                      Softtech\r\n                                   </div>\r\n                                </div>\r\n                             </div>\r\n                          </div>\r\n                          <div class=\"col-md-4 client-logos-repeater\">\r\n                             <a href=\"/path/to/detail/wheel.html\" class=\"Wheel\"><img alt=\"images/logo-target.png\" src=\"../../../../assets//images/6.jpg\"></a>\r\n                             <div class=\"logo-title\">\r\n                                <div class=\"displayTable\">\r\n                                   <div class=\"displayTableCell\">\r\n                                      Wheel\r\n                                   </div>\r\n                                </div>\r\n                             </div>\r\n                          </div>\r\n                          <div class=\"col-md-4 client-logos-repeater\">\r\n                             <a href=\"/path/to/detail/3designs.html\" class=\"3designs\"><img alt=\"images/designx.png\" src=\"../../../../assets//images/et4.jpg\"></a>\r\n                             <div class=\"logo-title\">\r\n                                <div class=\"displayTable\">\r\n                                   <div class=\"displayTableCell\">\r\n                                      3designs\r\n                                   </div>\r\n                                </div>\r\n                             </div>\r\n                          </div>\r\n                       </div>\r\n                       <div class=\"row\">\r\n                          <div class=\"col-md-4 client-logos-repeater\">\r\n                             <a href=\"/path/to/detail/heart.html\" class=\"Heart\"><img alt=\"images/client7.png\" src=\"../../../../assets//images/tech.png\"></a>\r\n                             <div class=\"logo-title\">\r\n                                <div class=\"displayTable\">\r\n                                   <div class=\"displayTableCell\">\r\n                                      Heart\r\n                                   </div>\r\n                                </div>\r\n                             </div>\r\n                          </div>\r\n                          <div class=\"col-md-4 client-logos-repeater\">\r\n                             <a href=\"/path/to/detail/devtech.html\" class=\"Devtech\"><img alt=\"images/devtech.png\" src=\"../../../../assets//images/et1.jpg\"></a>\r\n                             <div class=\"logo-title\">\r\n                                <div class=\"displayTable\">\r\n                                   <div class=\"displayTableCell\">\r\n                                      Devtech\r\n                                   </div>\r\n                                </div>\r\n                             </div>\r\n                          </div>\r\n                          <div class=\"col-md-4 client-logos-repeater\">\r\n                             <a href=\"/path/to/detail/chartz.html\" class=\"Chartz\"><img alt=\"images/chartz.png\" src=\"../../../../assets//images/et2.jpg\"></a>\r\n                             <div class=\"logo-title\">\r\n                                <div class=\"displayTable\">\r\n                                   <div class=\"displayTableCell\">\r\n                                      Chartz\r\n                                   </div>\r\n                                </div>\r\n                             </div>\r\n                          </div>\r\n                       </div>\r\n                       <!-- closing row div -->\r\n                    </div>\r\n                 </div>\r\n              </section>\r\n           </div>\r\n        </div>\r\n     </div>\r\n  </main>\r\n"
 
 /***/ }),
 
@@ -2043,7 +2260,7 @@ ContactComponent = __decorate([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".header{\r\n  margin-top: 1em;\r\n  margin-bottom: 3em;\r\n}\r\n.crop-data{\r\n  padding-left: 4em;\r\n  padding-top: 3em;\r\nwidth: 100%;\r\nmargin: 0 auto;\r\nalign-content: center;\r\n}\r\n.col-md-6 img{\r\nwidth: 100%;\r\nheight: 100;\r\n}\r\nh3{\r\n  font-weight: bold;\r\n}\r\n.table{\r\nfont-size: 1em;\r\n}\r\n"
+module.exports = ".header{\r\n  margin-top: 1em;\r\n  margin-bottom: 1em;\r\n}\r\n.crop-data{\r\n  padding-left: 4em;\r\n  padding-top: 3em;\r\nwidth: 100%;\r\nmargin: 0 auto;\r\nalign-content: center;\r\n}\r\n.col-md-6 img{\r\nwidth: 100%;\r\nheight: 100;\r\n}\r\nh3{\r\n  font-weight: bold;\r\n}\r\n.table{\r\nfont-size: 1em;\r\n}\r\n"
 
 /***/ }),
 
@@ -2054,7 +2271,7 @@ module.exports = ".header{\r\n  margin-top: 1em;\r\n  margin-bottom: 3em;\r\n}\r
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header\">\r\n  <h1 class=\"text-center\">Most widely caltivated crops in Ethiopia </h1>\r\n</div>\r\n<div>\r\n  <hr style=\"width: 100%;\"/>\r\n\r\n  <div class=\"row\" *ngFor = \"let crop of crops, let img of images\">\r\n    <div class=\"col-md-6\">\r\n    <img [src]='\"../../../../assets/crops/\"+img.url+\".jpg\"' alt=\"crop image\">\r\n  </div>\r\n  <div class=\"col-md-6 crop-data\" >\r\n      <table class=\"\" cellpadding=\"3\" style=\"float: left\">\r\n          <tr>\r\n              <td width=\"10px;\"><strong> Crop Name </strong></td>\r\n              <td width=\"250px;\"> {{crop.crop_name}} </td>\r\n          </tr>\r\n          <tr>\r\n              <td>&nbsp;</td>\r\n          </tr>\r\n          <tr>\r\n              <td width=\"120px;\"><strong> Descriptions </strong></td>\r\n              <td width=\"500px;\"> {{crop.crop_description}} </td>\r\n          </tr>\r\n          <tr>\r\n              <td>&nbsp;</td>\r\n          </tr>\r\n          <tr>\r\n              <td width=\"200px;\"><strong>Prefered Soil Type </strong></td>\r\n              <td width=\"400px;\"> {{crop.prefered_soil_type}} </td>\r\n          </tr>\r\n          <tr>\r\n              <td>&nbsp;</td>\r\n          </tr>\r\n          <tr>\r\n            <td width=\"150px;\"><strong> Prefered Season </strong></td>\r\n            <td width=\"300px;\"> {{crop.prefered_season}} </td>\r\n        </tr>\r\n        <tr>\r\n            <td>&nbsp;</td>\r\n        </tr>\r\n      </table>\r\n\r\n    </div>\r\n<br>\r\n    <hr style=\"width: 100%;\"/>\r\n</div>\r\n\r\n\r\n"
+module.exports = "<div class=\"header\">\r\n  <h1 class=\"text-center\">Most widely caltivated crops in Ethiopia </h1>\r\n</div>\r\n<div>\r\n  <hr style=\"width: 100%;\"/>\r\n\r\n  <div class=\"row\" *ngFor = \"let crop of crops, let img of images\">\r\n    <div class=\"col-md-6\">\r\n    <img  src =\"../../../../assets/crops/mango.jpg\" alt=\"crop image\">\r\n  </div>\r\n  <div class=\"col-md-6 crop-data\" >\r\n      <table class=\"\" cellpadding=\"3\" style=\"float: left\">\r\n          <tr>\r\n              <td width=\"10px;\"><strong> Crop Name </strong></td>\r\n              <td width=\"250px;\"> {{crop.crop_name}} </td>\r\n          </tr>\r\n          <tr>\r\n            <td>&nbsp;</td>\r\n        </tr>\r\n          <tr>\r\n              <td width=\"120px;\"><strong> Descriptions </strong></td>\r\n              <td width=\"500px;\"> {{crop.crop_description}} </td>\r\n          </tr>\r\n          <tr>\r\n            <td>&nbsp;</td>\r\n        </tr>\r\n          <tr>\r\n              <td width=\"200px;\"><strong>Prefered Soil Type </strong></td>\r\n              <td width=\"400px;\"> {{crop.prefered_soil_type}} </td>\r\n          </tr>\r\n          <tr>\r\n            <td>&nbsp;</td>\r\n        </tr>\r\n          <tr>\r\n            <td width=\"150px;\"><strong> Prefered Season </strong></td>\r\n            <td width=\"300px;\"> {{crop.prefered_season}} </td>\r\n        </tr>\r\n        <tr>\r\n          <td>&nbsp;</td>\r\n      </tr>\r\n      </table>\r\n\r\n    </div>\r\n<br>\r\n    <hr style=\"width: 100%;\"/>\r\n</div>\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -2113,7 +2330,7 @@ CropsComponent = __decorate([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".search{\r\n  margin-top: 1em;\r\n}\r\nagm-map {\r\n  height: 300px;\r\n}\r\n.crop-data{\r\npadding-left: 0.5em;\r\npadding-top: 0.5em;\r\nwidth: 100%;\r\nmargin: 0 auto;\r\nalign-content: center;\r\n}\r\n.col-md-6 img{\r\nwidth: 100%;\r\nheight: 100;\r\n}\r\nh3{\r\n  font-weight: bold;\r\n}\r\n.table{\r\nfont-size: 1em;\r\n}\r\n.button{\r\nbackground: green;\r\ntext-align: center;\r\nfont-size: 16px;\r\nwidth: 400%;\r\nheight: 100%;\r\ncolor: white;\r\n}\r\n.farmland{\r\nmargin: 0 auto 50px;\r\n}\r\n.form{\r\n  padding-left: 200px;\r\n}\r\n\r\n"
+module.exports = ".header{\r\n  margin-top: 1em;\r\n  margin-bottom: 1em;\r\n}\r\nagm-map {\r\n  height: 300px;\r\n}\r\n.crop-data{\r\npadding-left: 0.5em;\r\npadding-top: 0.5em;\r\nwidth: 100%;\r\nmargin: 0 auto;\r\nalign-content: center;\r\n}\r\n.col-md-6 img{\r\nwidth: 100%;\r\nheight: 100;\r\n}\r\nh3{\r\n  font-weight: bold;\r\n}\r\n.table{\r\nfont-size: 1em;\r\n}\r\n.button{\r\nbackground: green;\r\ntext-align: center;\r\nfont-size: 16px;\r\nwidth: 400%;\r\nheight: 100%;\r\ncolor: white;\r\n}\r\n.farmland{\r\nmargin: 0 auto 50px;\r\n}\r\n.form{\r\n  padding-left: 200px;\r\n}\r\n\r\n"
 
 /***/ }),
 
@@ -2124,7 +2341,7 @@ module.exports = ".search{\r\n  margin-top: 1em;\r\n}\r\nagm-map {\r\n  height: 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"search-div\">\r\n    <mat-form-field class=\"search-form-field\" floatLabel=\"never\">\r\n      <input matInput [(ngModel)]=\"searchKey\" placeholder=\"Search\" autocomplete=\"off\" (keyup)=\"applyFilter()\">\r\n      <button mat-button matSuffix mat-icon-button aria-label=\"Clear\"*ngIf=\"searchKey\"  (click)=\"onSearchClear()\">\r\n      </button>\r\n    </mat-form-field>\r\n  </div>\r\n\r\n<hr style=\"width: 100%; border: green 4px double \"/>\r\n\r\n    <div class=\"row farmland\" *ngFor = \"let farmland of farmlands\">\r\n      <div class=\"col-md-5\" >\r\n        <agm-map [latitude]=\"lat\" [longitude]=\"long\">\r\n            <agm-marker [latitude]=\"lat\" [longitude]=\"long\"></agm-marker>\r\n          </agm-map>\r\n        </div>\r\n\r\n            <div class=\"col-md-7 crop-data\" >\r\n                <table class=\"\" cellpadding=\"3\" style=\"float: left\">\r\n                    <tr>\r\n                      <td width=\"40px;\" style= \"padding-right:.5em\"><strong> Descriptions </strong></td>\r\n                      <td width=\"100%;\"> {{farmland.farmland_description}} </td>\r\n                  </tr>\r\n                  <tr>\r\n                  <td>&nbsp;</td>\r\n              </tr>\r\n              <tr>\r\n                <td width=\"40px;\" style= \"padding-right:.5em\"><strong> Experiance </strong></td>\r\n                <td width=\"100%;\"> {{farmland.farmland_experiance}} </td>\r\n            </tr>\r\n                <tr>\r\n                    <td>&nbsp;</td>\r\n                </tr>\r\n                <tr>\r\n                    <td width=\"100px;\"><strong> Location </strong></td>\r\n                    <td width=\"200px;\"> {{farmland.physical_address}} </td>\r\n                </tr>\r\n                <tr>\r\n                    <td>&nbsp;</td>\r\n                </tr>\r\n                <tr>\r\n                    <td width=\"100px;\"><strong> Area </strong></td>\r\n                    <td width=\"200px;\"> {{farmland.farmland_area}} <span>Hectar</span> </td>\r\n                </tr>\r\n                <tr>\r\n                    <td>&nbsp;</td>\r\n                </tr>\r\n                <tr>\r\n                    <td width=\"100px;\"><strong>Soil Type </strong></td>\r\n                    <td width=\"200px;\"> {{farmland.soil_type}} </td>\r\n                </tr>\r\n                <tr>\r\n                    <td>&nbsp;</td>\r\n                    <td>&nbsp;</td>\r\n                </tr>\r\n              </table>\r\n              <div class=\"form\">\r\n              <form novalidate (ngSubmit)=\"onSubmitleaseFarmland(farmland._id)\">\r\n                  <input\r\n                  type=\"text\" id=\"leasefarmland\" value=\"{{farmland._id}}\"\r\n                  type=\"text\" name=\"\" class=\"input\"\r\n                 formControlName=\"leaseFarmland\"\r\n                placeholder=\"Last Name\" style=\"display: none;\">\r\n               <button style=\"width:50%;\" type=\"submit\" name=\"\" class=\"button btn btn-block btn-primary\" value=''>Lease it</button>\r\n     </form>\r\n    </div>\r\n          </div>\r\n    <hr style=\"width: 100%; border: black 2px double \"/>\r\n\r\n          </div>\r\n\r\n\r\n\r\n\r\n"
+module.exports = "<div class=\"header\">\r\n  <h1 class=\"text-center\">Available Farmlands large Scale Farming </h1>\r\n</div>\r\n<hr style=\"width: 100%;\"/>\r\n<br>\r\n    <div class=\"row farmland\" *ngFor = \"let farmland of farmlands\">\r\n      <div class=\"col-md-5\" >\r\n        <agm-map [latitude]=\"lat\" [longitude]=\"long\">\r\n            <agm-marker [latitude]=\"lat\" [longitude]=\"long\"></agm-marker>\r\n          </agm-map>\r\n        </div>\r\n\r\n            <div class=\"col-md-7 crop-data\" >\r\n                <table class=\"\" cellpadding=\"3\" style=\"float: left\">\r\n                    <tr>\r\n                      <td width=\"40px;\" style= \"padding-right:.5em\"><strong> Descriptions </strong></td>\r\n                      <td width=\"100%;\"> {{farmland.farmland_description}} </td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>&nbsp;</td>\r\n                </tr>\r\n              <tr>\r\n                <td width=\"40px;\" style= \"padding-right:.5em\"><strong> Experiance </strong></td>\r\n                <td width=\"100%;\"> {{farmland.farmland_experiance}} </td>\r\n            </tr>\r\n            <tr>\r\n              <td>&nbsp;</td>\r\n          </tr>\r\n                <tr>\r\n                    <td width=\"100px;\"><strong> Location </strong></td>\r\n                    <td width=\"200px;\"> {{farmland.physical_address}} </td>\r\n                </tr>\r\n                <tr>\r\n                  <td>&nbsp;</td>\r\n              </tr>\r\n                <tr>\r\n                    <td width=\"100px;\"><strong> Area </strong></td>\r\n                    <td width=\"200px;\"> {{farmland.farmland_area}} <span>Hectar</span> </td>\r\n                </tr>\r\n                <tr>\r\n                  <td>&nbsp;</td>\r\n              </tr>\r\n                <tr>\r\n                    <td width=\"100px;\"><strong>Soil Type </strong></td>\r\n                    <td width=\"200px;\"> {{farmland.soil_type}} </td>\r\n                </tr>\r\n                <tr>\r\n                  <td>&nbsp;</td>\r\n              </tr>\r\n              </table>\r\n              <div class=\"form\">\r\n              <form novalidate (ngSubmit)=\"onSubmitleaseFarmland(farmland._id)\">\r\n                  <input\r\n                  type=\"text\" id=\"leasefarmland\" value=\"{{farmland._id}}\"\r\n                  type=\"text\" name=\"\" class=\"input\"\r\n                 formControlName=\"leaseFarmland\"\r\n                placeholder=\"Last Name\" style=\"display: none;\">\r\n               <button style=\"width:50%;\" type=\"submit\" name=\"\" class=\"button btn btn-block btn-primary\" value=''>Lease it</button>\r\n     </form>\r\n    </div>\r\n          </div>\r\n          <hr style=\"width: 100%;\"/>\r\n\r\n          </div>\r\n\r\n\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -2138,9 +2355,12 @@ module.exports = "<div class=\"search-div\">\r\n    <mat-form-field class=\"sear
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FarmlandsComponent", function() { return FarmlandsComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _common_services_auth_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../common/services/auth.service */ "./src/app/common/services/auth.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var app_common_services_notification_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! app/common/services/notification.service */ "./src/app/common/services/notification.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _common_services_auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../common/services/auth.service */ "./src/app/common/services/auth.service.ts");
+/* harmony import */ var _components_hiring_policy_hiring_policy_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/hiring-policy/hiring-policy.component */ "./src/app/gust/components/hiring-policy/hiring-policy.component.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2153,10 +2373,15 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
+
 let FarmlandsComponent = class FarmlandsComponent {
-    constructor(router, authService) {
+    constructor(matDialog, router, authService, notify) {
+        this.matDialog = matDialog;
         this.router = router;
         this.authService = authService;
+        this.notify = notify;
     }
     ngOnInit() {
         this.authService.getFarmland().subscribe(data => {
@@ -2172,21 +2397,115 @@ let FarmlandsComponent = class FarmlandsComponent {
             this.router.navigate(['/gust']);
         }
         else {
-            this.authService.hireFarmland(farmland, loggedUser._id).subscribe(data => {
-                alert(`Hi, ${data.msg}`);
-            });
+            alert(`Please accept our farmland leasing policy and try again`);
+            this.checkTermesAndSerives();
+            if (this.authService.term) {
+                this.authService.hireFarmland(farmland, loggedUser._id).subscribe(data => {
+                    this.notify.success(data.msg);
+                });
+            }
         }
+    }
+    checkTermesAndSerives() {
+        const dialogConfig = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatDialogConfig"]();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.width = '80%';
+        dialogConfig.height = '90%';
+        this.matDialog.open(_components_hiring_policy_hiring_policy_component__WEBPACK_IMPORTED_MODULE_3__["HiringPolicyComponent"], dialogConfig);
     }
 };
 FarmlandsComponent = __decorate([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-farmlands',
         template: __webpack_require__(/*! ./farmlands.component.html */ "./src/app/gust/components/farmlands/farmlands.component.html"),
         styles: [__webpack_require__(/*! ./farmlands.component.css */ "./src/app/gust/components/farmlands/farmlands.component.css")]
     }),
-    __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
-        _common_services_auth_service__WEBPACK_IMPORTED_MODULE_1__["AuthService"]])
+    __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_5__["MatDialog"],
+        _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
+        _common_services_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"],
+        app_common_services_notification_service__WEBPACK_IMPORTED_MODULE_0__["NotificationServiceService"]])
 ], FarmlandsComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/gust/components/hiring-policy/hiring-policy.component.css":
+/*!***************************************************************************!*\
+  !*** ./src/app/gust/components/hiring-policy/hiring-policy.component.css ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".example-radio-group {\r\n  display: flex;\r\n  flex-direction: column;\r\n  margin: 15px 0;\r\n}\r\n\r\n.example-radio-button {\r\n  margin: 5px;\r\n}\r\n"
+
+/***/ }),
+
+/***/ "./src/app/gust/components/hiring-policy/hiring-policy.component.html":
+/*!****************************************************************************!*\
+  !*** ./src/app/gust/components/hiring-policy/hiring-policy.component.html ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div>\r\n  <h1 >Using our Services</h1>\r\n  <p>You must follow any policies made available to you within the Services</p>\r\n  <p>Don’t misuse our Services. For example, don’t interfere with our Services or try to access them using a method other than the interface and the instructions that we provide. You may use our Services only as permitted by law, including applicable export and re-export control laws and regulations. We may suspend or stop providing our Services to you if you do not comply with our terms or policies or if we are investigating suspected misconduct.</p>\r\n  <p>Using our Services does not give you ownership of any intellectual property rights in our Services or the content you access. You may not use content from our Services unless you obtain permission from its owner or are otherwise permitted by law. These terms do not grant you the right to use any branding or logos used in our Services. Don’t remove, obscure, or alter any legal notices displayed in or along with our Services</p>\r\n  <p>Our Services display some content that is not Google’s. This content is the sole responsibility of the entity that makes it available. We may review content to determine whether it is illegal or violates our policies, and we may remove or refuse to display content that we reasonably believe violates our policies or the law. But that does not necessarily mean that we review content, so please don’t assume that we do.</p>\r\n  <p>In connection with your use of the Services, we may send you service announcements, administrative messages, and other information. You may opt out of some of those communications</p>\r\n  <p>Some of our Services are available on mobile devices. Do not use such Services in a way that distracts you and prevents you from obeying traffic or safety laws.</p>\r\n\r\n  <mat-radio-group\r\n  aria-labelledby=\"example-radio-group-label\"\r\n  class=\"example-radio-group\"\r\n  [(ngModel)]=\"mytTerm\">\r\n  <mat-radio-button class=\"example-radio-button\" *ngFor=\"let term of terms\" [value]=\"term.value\">\r\n    {{term.text}}\r\n  </mat-radio-button>\r\n</mat-radio-group>\r\n</div>\r\n\r\n\r\n"
+
+/***/ }),
+
+/***/ "./src/app/gust/components/hiring-policy/hiring-policy.component.ts":
+/*!**************************************************************************!*\
+  !*** ./src/app/gust/components/hiring-policy/hiring-policy.component.ts ***!
+  \**************************************************************************/
+/*! exports provided: HiringPolicyComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HiringPolicyComponent", function() { return HiringPolicyComponent; });
+/* harmony import */ var _common_services_auth_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../common/services/auth.service */ "./src/app/common/services/auth.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+let HiringPolicyComponent = class HiringPolicyComponent {
+    constructor(dialogRef, service) {
+        this.dialogRef = dialogRef;
+        this.service = service;
+        this.terms = [
+            { text: 'By checking this button you will aggree our terms and services', value: true },
+            { text: 'By checking this button you will dissaggree our terms and services', value: false }
+        ];
+    }
+    ngOnInit() {
+    }
+    onSubmit() {
+        this.service.checkTermsAndService(this.myTerm);
+        this.dialogRef.close();
+    }
+    onClose() {
+        this.dialogRef.close();
+    }
+};
+HiringPolicyComponent = __decorate([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-hiring-policy',
+        template: __webpack_require__(/*! ./hiring-policy.component.html */ "./src/app/gust/components/hiring-policy/hiring-policy.component.html"),
+        styles: [__webpack_require__(/*! ./hiring-policy.component.css */ "./src/app/gust/components/hiring-policy/hiring-policy.component.css")]
+    }),
+    __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"],
+        _common_services_auth_service__WEBPACK_IMPORTED_MODULE_0__["AuthService"]])
+], HiringPolicyComponent);
 
 
 
@@ -2595,12 +2914,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_welcome_welcome_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/welcome/welcome.component */ "./src/app/gust/components/welcome/welcome.component.ts");
 /* harmony import */ var _components_crops_crops_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/crops/crops.component */ "./src/app/gust/components/crops/crops.component.ts");
 /* harmony import */ var app_material_material_module__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! app/material/material.module */ "./src/app/material/material.module.ts");
+/* harmony import */ var _components_hiring_policy_hiring_policy_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/hiring-policy/hiring-policy.component */ "./src/app/gust/components/hiring-policy/hiring-policy.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -2644,6 +2965,7 @@ GustModule = __decorate([
             _components_register_register_component__WEBPACK_IMPORTED_MODULE_12__["RegisterComponent"],
             _components_welcome_welcome_component__WEBPACK_IMPORTED_MODULE_13__["WelcomeComponent"],
             _components_crops_crops_component__WEBPACK_IMPORTED_MODULE_14__["CropsComponent"],
+            _components_hiring_policy_hiring_policy_component__WEBPACK_IMPORTED_MODULE_16__["HiringPolicyComponent"],
         ],
         exports: [_gust_component__WEBPACK_IMPORTED_MODULE_2__["GustComponent"],],
         providers: [angular2_flash_messages__WEBPACK_IMPORTED_MODULE_7__["FlashMessagesService"]]

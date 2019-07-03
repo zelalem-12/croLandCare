@@ -76,7 +76,7 @@ router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res,
 });
 
 // user prifile update
-router.put('/: user', (req, res) => {
+router.put('/:user', (req, res) => {
  const user =req.params.user,
    newData =  req.body.newData;
  User.updateProfile(user, newData, (err, resp) => {
@@ -87,6 +87,24 @@ router.put('/: user', (req, res) => {
 });
 
 // ....... Admin Service API.............
+
+router.get('/admin-notification', (req, res) => {
+  User.find({username:'admin'}, {notification:1}, (err, response ) => {
+     if(err)  throw err;
+     if(!response) throw `No farmland exixts for farrmland id ${farmland}`;
+     console.log(response);
+ });
+});
+router.get('/user-notification', (req, res) => {
+  User.find({username:{$not:'admin'}}, {notification:1}, (err, response ) => {
+     if(err)  throw err;
+     if(!response) throw `No farmland exixts for farrmland id ${farmland}`;
+     console.log(response);
+ });
+});
+ 
+ 
+
 
 // .... Searching User by passport
 router.get('/:passport', (req, res) => {
