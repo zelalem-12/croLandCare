@@ -88,18 +88,20 @@ router.put('/:user', (req, res) => {
 
 // ....... Admin Service API.............
 
-router.get('/admin-notification', (req, res) => {
-  User.find({username:'admin'}, {notification:1}, (err, response ) => {
+router.get('/admin-notification/:admin', (req, res) => {
+  User.find({username:req.params.admin}, {notification:1}, (err, response ) => {
      if(err)  throw err;
      if(!response) throw `No farmland exixts for farrmland id ${farmland}`;
-     console.log(response);
+          // console.log(response);
+      res.json(response);
  });
 });
-router.get('/user-notification', (req, res) => {
-  User.find({username:{$not:'admin'}}, {notification:1}, (err, response ) => {
+router.get('/user-notification/:username', (req, res) => {
+  User.find({username: req.params.username}, {_id:0, notification:1}, (err, response ) => {
      if(err)  throw err;
      if(!response) throw `No farmland exixts for farrmland id ${farmland}`;
-     console.log(response);
+      console.log(response[0].notification);
+      res.send(response[0].notification);
  });
 });
  

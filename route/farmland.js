@@ -104,7 +104,8 @@ Farmland.hireFarmland(farmland_id, user, (err, farmlandUpdated) => {
     if(!userUpdated) {res.json({success: false, msg: 'Opps something wrong while hiring the farmland'});
      } else {
       const notification = `A farmer with passport ID ${user.userID} hired the farmland ${farmland_id} on ${now}`;
-       User.update({username: 'admin'}, {$push: {notification: notification}});
+       User.update({username: 'admin'}, {$push: {notification: notification}}, (err, add) => {
+        if (err) throw err;});
        res.json({success: false, msg: "Farmland hired Successfully"});}
   });} });
  });
@@ -157,13 +158,16 @@ router.post('/sensor', (req, res) => {
           latitude: req.body.latitude,
           longitude: req.body.longitude
             };
+            let farmlandOwner = "zele_12" ;
   //  console.log(`${farmland}, ${data} , ${data.soil_moisture}`);
-  Farmland.findById(farmland, {_id:0,latitude:1,longitude:1 }, (err, response ) => {
+  Farmland.findById(farmland, {_id:0,latitude:1,longitude:1, ownedBy:1}, (err, response ) => {
     if(err)  throw err;
     if(!response)  throw 'No farmland in this location exists';
     else if(location.latitude != response.latitude || location.longitude !== response.longitude){
       { throw "Farmland and Sensor location didn't match";} // server igonres an authenticated sensor data
-    }  });
+    } 
+    User.findById(response.ownedBy, {_id: 0, username: 1}, (err, owner) => {
+      farmlandOwner = owner.username}); });
     Farmland.findByIdAndUpdate(farmland, { $push: { embedded_system: data }}, { new: true }, (err, update) => {
         if(err) throw err;
         if(!update) throw 'Unable return the updated data'});
@@ -234,12 +238,12 @@ Farmland.findByIdAndUpdate(farmland, { $set: { enviromental_weather_avg: environ
       Farmland.findByIdAndUpdate(farmland, { $addToSet:  { recCrop: crop.crop_name} }, { new: true }, (err, recom) => {
         if(err) throw err;
         if(!recom) {throw err;}
-        if (embedded_system_avg.soil_moisture_avg > 750) {
+        if (farmland4CropSug.embedded_system_avg.soil_moisture_avg > 50) {
           const notification = "The avarage soil moisture level is bellow the threshold value, please check your water pump if is out of servce";
-          User.update({username: 'admin'}, {$push: {notification: notification}});}
-          if (embedded_system_avg.soil_phLevel_avg < 2) {
+          User.findOneAndUpdate({username: farmlandOwner}, {$push: {notification: notification}}, (err, notf) => {if(err) throw err;} );}
+          if (farmland4CropSug.embedded_system_avg.soil_phLevel_avg < 7) {
             const notification = "The avarage PH lebel level is bellow the threshold value which indicate more acidic, please use some basic chemicals";
-            User.update({username: {$not:'admin'}}, {$push: {notification: notification}});}
+            User.update({username: farmlandOwner}, {$push: {notification: notification}});}
           });  }} 
       });
      });
