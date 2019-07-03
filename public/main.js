@@ -105,12 +105,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
 /* harmony import */ var _components_admin_notification_admin_notification_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/admin-notification/admin-notification.component */ "./src/app/admin/components/admin-notification/admin-notification.component.ts");
+/* harmony import */ var _components_farmald_search_farmald_search_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/farmald-search/farmald-search.component */ "./src/app/admin/components/farmald-search/farmald-search.component.ts");
+/* harmony import */ var _components_customer_message_customer_message_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/customer-message/customer-message.component */ "./src/app/admin/components/customer-message/customer-message.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -141,6 +145,8 @@ AdminModule = __decorate([
             _components_farmland_registration_farmland_registration_component__WEBPACK_IMPORTED_MODULE_4__["FarmlandRegistrationComponent"],
             _components_farmers_list_farmers_list_component__WEBPACK_IMPORTED_MODULE_5__["FarmersListComponent"],
             _components_admin_notification_admin_notification_component__WEBPACK_IMPORTED_MODULE_10__["AdminNotificationComponent"],
+            _components_farmald_search_farmald_search_component__WEBPACK_IMPORTED_MODULE_11__["FarmaldSearchComponent"],
+            _components_customer_message_customer_message_component__WEBPACK_IMPORTED_MODULE_12__["CustomerMessageComponent"],
         ]
     })
 ], AdminModule);
@@ -308,6 +314,162 @@ AdminNotificationComponent = __decorate([
 
 /***/ }),
 
+/***/ "./src/app/admin/components/customer-message/customer-message.component.css":
+/*!**********************************************************************************!*\
+  !*** ./src/app/admin/components/customer-message/customer-message.component.css ***!
+  \**********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".active-cyan-2 input[type=text]:focus:not([readonly]) {\r\n  border-bottom: 1px solid #4dd0e1;\r\n  box-shadow: 0 1px 0 0 #4dd0e1;\r\n  }\r\n\r\n  .active-cyan input[type=text] {\r\n  border-bottom: 1px solid #4dd0e1;\r\n  box-shadow: 0 1px 0 0 #4dd0e1;\r\n  }\r\n\r\n  .active-cyan .fa,\r\n  .active-cyan-2 .fa {\r\n  color: #4dd0e1;\r\n  }\r\n\r\n  #searchHeader{\r\n    width: 75%;\r\n    margin: 0 auto;\r\n\t  margin-top: 2em;\r\n\t}\r\n\r\n  form{\r\n    padding:20px;\r\n    float: none;\r\n\t}\r\n\r\n  .form-control{\r\n\t\tmargin: 0;\r\n\t\tpadding: 5px 15px;\r\n\t\tfont-family: Arial, Helvetica, sans-serif;\r\n\t\tfont-size:14px;\r\n\t\tborder:1px solid #0076a3; border-right:0px;\r\n\t\tborder-top-left-radius: 5px 5px;\r\n\t\tborder-bottom-left-radius: 5px 5px;\r\n\t}\r\n\r\n  .tfbutton {\r\n\t\tmargin: 0;\r\n\t\tpadding: 5px 15px;\r\n\t\tfont-family: Arial, Helvetica, sans-serif;\r\n\t\tfont-size:14px;\r\n\t\toutline: none;\r\n\t\tcursor: pointer;\r\n\t\ttext-align: center;\r\n\t\ttext-decoration: none;\r\n\t\tcolor: #ffffff;\r\n\t\tborder: solid 1px #0076a3; border-right:0px;\r\n\t\tbackground: #0095cd;\r\n\t\tbackground: -moz-linear-gradient(top,  #00adee,  #0078a5);\r\n\t\tborder-top-right-radius: 5px 5px;\r\n\t\tborder-bottom-right-radius: 5px 5px;\r\n\t}\r\n\r\n  .tfbutton:hover {\r\n\t\ttext-decoration: none;\r\n\t\tbackground: #007ead;\r\n\t\tbackground: -moz-linear-gradient(top,  #0095cc,  #00678e);\r\n\t}\r\n\r\n  /* Fixes submit button height problem in Firefox */\r\n\r\n  .tfbutton::-moz-focus-inner {\r\n\t  border: 0;\r\n\t}\r\n\r\n  .tfclear{\r\n\t\tclear:both;\r\n\t}\r\n\r\n  .user-data{\r\n  width: 100%;\r\n  margin: 0 auto;\r\n  margin-left: 8em;\r\n}\r\n"
+
+/***/ }),
+
+/***/ "./src/app/admin/components/customer-message/customer-message.component.html":
+/*!***********************************************************************************!*\
+  !*** ./src/app/admin/components/customer-message/customer-message.component.html ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div>\r\n    <div *ngIf=\"users\" class=\"row user-data\">\r\n        <div *ngFor=\"let message of messages\" class=\"col-md-12 crop-data\">\r\n          <table class=\"text-canter\" cellpadding=\"3\" style=\"float: left\">\r\n            <tr>\r\n              <td width=\"120px;\"><strong> Full Name </strong></td>\r\n              <td width=\"500px;\"> {{message.first_name}} <span></span> {{message.last_name}}</td>\r\n          </tr>\r\n          <tr>\r\n              <td width=\"120px;\"><strong> Email </strong></td>\r\n              <td width=\"500px;\"> {{message.first_name}}</td>\r\n          </tr>\r\n              <tr>\r\n                  <td width=\"120px;\"><strong> Phone </strong></td>\r\n                  <td width=\"500px;\"> {{message.first_name}} </td>\r\n              </tr>\r\n                <tr>\r\n                    <td width=\"120px;\"><strong> message </strong></td>\r\n                    <td width=\"500px;\"> {{message.message}} </td>\r\n                </tr>\r\n          </table>\r\n        </div>\r\n        </div>\r\n\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/admin/components/customer-message/customer-message.component.ts":
+/*!*********************************************************************************!*\
+  !*** ./src/app/admin/components/customer-message/customer-message.component.ts ***!
+  \*********************************************************************************/
+/*! exports provided: CustomerMessageComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CustomerMessageComponent", function() { return CustomerMessageComponent; });
+/* harmony import */ var _common_services_auth_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../common/services/auth.service */ "./src/app/common/services/auth.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+let CustomerMessageComponent = class CustomerMessageComponent {
+    constructor(authService) {
+        this.authService = authService;
+    }
+    ngOnInit() {
+        this.authService.getCustomerMessages()
+            .subscribe(data => {
+            this.messages = data;
+            console.log(this.messages);
+        });
+    }
+};
+CustomerMessageComponent = __decorate([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-customer-message',
+        template: __webpack_require__(/*! ./customer-message.component.html */ "./src/app/admin/components/customer-message/customer-message.component.html"),
+        styles: [__webpack_require__(/*! ./customer-message.component.css */ "./src/app/admin/components/customer-message/customer-message.component.css")]
+    }),
+    __metadata("design:paramtypes", [_common_services_auth_service__WEBPACK_IMPORTED_MODULE_0__["AuthService"]])
+], CustomerMessageComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/admin/components/farmald-search/farmald-search.component.css":
+/*!******************************************************************************!*\
+  !*** ./src/app/admin/components/farmald-search/farmald-search.component.css ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/admin/components/farmald-search/farmald-search.component.html":
+/*!*******************************************************************************!*\
+  !*** ./src/app/admin/components/farmald-search/farmald-search.component.html ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\r\n\t<div id=\"searchHeader\">\r\n      <form novalidate [formGroup]=\"searchForm\" (submit)=\"onSubmitSearch(searchForm.value)\">\r\n          <div class=\"form-container\">\r\n              <label for=\"name\">Search Farmers by Passport:</label>\r\n              <input\r\n              type=\"text\"\r\n              class=\"tftextinput\"\r\n              formControlName=\"farmland\"/>\r\n              <input type=\"submit\" value=\"search\" class=\"tfbutton\">\r\n            </div>\r\n      </form>\r\n\r\n    <div class=\"tfclear\"></div>\r\n    </div>\r\n  <hr>\r\n  <div *ngIf=\"users\" class=\"row user-data\">\r\n  <div *ngFor=\"let user of users\" class=\"col-md-12 crop-data\">\r\n    <table class=\"text-canter\" cellpadding=\"3\" style=\"float: left\">\r\n      <tr>\r\n        <td width=\"120px;\"><strong> Area  </strong></td>\r\n        <td width=\"500px;\"> {{farmland.userID}} <span>Hectar</span> </td>\r\n    </tr>\r\n    <tr>\r\n        <td>&nbsp;</td>\r\n    </tr>\r\n        <tr>\r\n            <td width=\"10px;\"><strong> Physical Address </strong></td>\r\n            <td width=\"250px;\"> {{farmland.farmland_description}} </td>\r\n        </tr>\r\n        <tr>\r\n            <td>&nbsp; </td>\r\n        </tr>\r\n\r\n        <tr>\r\n          <td width=\"150px;\"><strong>Owned By </strong></td>\r\n          <td width=\"300px;\"> {{farmland.ownedBy}} </td>\r\n        </tr>\r\n          <tr>\r\n              <td>&nbsp;</td>\r\n          </tr>\r\n    </table>\r\n  </div>\r\n  </div>\r\n\r\n"
+
+/***/ }),
+
+/***/ "./src/app/admin/components/farmald-search/farmald-search.component.ts":
+/*!*****************************************************************************!*\
+  !*** ./src/app/admin/components/farmald-search/farmald-search.component.ts ***!
+  \*****************************************************************************/
+/*! exports provided: SearchModel, FarmaldSearchComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SearchModel", function() { return SearchModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FarmaldSearchComponent", function() { return FarmaldSearchComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _common_services_auth_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ..//../../common/services/auth.service */ "./src/app/common/services/auth.service.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+class SearchModel {
+}
+let FarmaldSearchComponent = class FarmaldSearchComponent {
+    constructor(formBuilder, authService) {
+        this.formBuilder = formBuilder;
+        this.authService = authService;
+        this.farmlandIDtModel = new SearchModel();
+    }
+    ngOnInit() {
+        this.searchForm = this.formBuilder.group({
+            'farmland': [this.farmlandIDtModel.farmlandID, [
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required,
+                ]]
+        });
+    }
+    // search user by passport
+    onSubmitSearch(search) {
+        this.authService.getFarmlandByID(search.farmland)
+            .subscribe(data => {
+            this.farmland = data;
+            console.log(this.farmland);
+        });
+    }
+};
+FarmaldSearchComponent = __decorate([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+        selector: 'app-farmald-search',
+        template: __webpack_require__(/*! ./farmald-search.component.html */ "./src/app/admin/components/farmald-search/farmald-search.component.html"),
+        styles: [__webpack_require__(/*! ./farmald-search.component.css */ "./src/app/admin/components/farmald-search/farmald-search.component.css")]
+    }),
+    __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
+        _common_services_auth_service__WEBPACK_IMPORTED_MODULE_1__["AuthService"]])
+], FarmaldSearchComponent);
+
+
+
+/***/ }),
+
 /***/ "./src/app/admin/components/farmers-list/farmers-list.component.css":
 /*!**************************************************************************!*\
   !*** ./src/app/admin/components/farmers-list/farmers-list.component.css ***!
@@ -376,7 +538,6 @@ let FarmersListComponent = class FarmersListComponent {
         this.authService.getUserByPassport(search.passport)
             .subscribe(data => {
             this.users = data;
-            console.log(this.users);
         });
     }
 };
@@ -493,35 +654,38 @@ FarmlandRegistrationComponent = __decorate([
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppRoutingModule", function() { return AppRoutingModule; });
-/* harmony import */ var _admin_components_admin_notification_admin_notification_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./admin/components/admin-notification/admin-notification.component */ "./src/app/admin/components/admin-notification/admin-notification.component.ts");
-/* harmony import */ var _farmer_components_farmer_notification_farmer_notification_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./farmer/components/farmer-notification/farmer-notification.component */ "./src/app/farmer/components/farmer-notification/farmer-notification.component.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
-/* harmony import */ var _common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./common/guards/auth.guard */ "./src/app/common/guards/auth.guard.ts");
-/* harmony import */ var _common_guards_role_guard_guard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./common/guards/role-guard.guard */ "./src/app/common/guards/role-guard.guard.ts");
-/* harmony import */ var _common_page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./common/page-not-found/page-not-found.component */ "./src/app/common/page-not-found/page-not-found.component.ts");
-/* harmony import */ var _gust_gust_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./gust/gust.component */ "./src/app/gust/gust.component.ts");
-/* harmony import */ var _gust_components_welcome_welcome_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./gust/components/welcome/welcome.component */ "./src/app/gust/components/welcome/welcome.component.ts");
-/* harmony import */ var _gust_components_farmlands_farmlands_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./gust/components/farmlands/farmlands.component */ "./src/app/gust/components/farmlands/farmlands.component.ts");
-/* harmony import */ var _gust_components_crops_crops_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./gust/components/crops/crops.component */ "./src/app/gust/components/crops/crops.component.ts");
-/* harmony import */ var _gust_components_contact_contact_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./gust/components/contact/contact.component */ "./src/app/gust/components/contact/contact.component.ts");
-/* harmony import */ var _gust_components_aboutUs_aboutus_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./gust/components/aboutUs/aboutus.component */ "./src/app/gust/components/aboutUs/aboutus.component.ts");
-/* harmony import */ var _gust_components_register_register_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./gust/components/register/register.component */ "./src/app/gust/components/register/register.component.ts");
-/* harmony import */ var _gust_components_hiring_policy_hiring_policy_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./gust/components/hiring-policy/hiring-policy.component */ "./src/app/gust/components/hiring-policy/hiring-policy.component.ts");
-/* harmony import */ var _farmer_farmer_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./farmer/farmer.component */ "./src/app/farmer/farmer.component.ts");
-/* harmony import */ var _farmer_components_profile_profile_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./farmer/components/profile/profile.component */ "./src/app/farmer/components/profile/profile.component.ts");
-/* harmony import */ var _farmer_components_home_home_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./farmer/components/home/home.component */ "./src/app/farmer/components/home/home.component.ts");
-/* harmony import */ var _farmer_components_my_farmalnds_my_farmalnds_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./farmer/components/my-farmalnds/my-farmalnds.component */ "./src/app/farmer/components/my-farmalnds/my-farmalnds.component.ts");
-/* harmony import */ var _admin_admin_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./admin/admin.component */ "./src/app/admin/admin.component.ts");
-/* harmony import */ var _admin_components_add_crop_add_crop_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./admin/components/add-crop/add-crop.component */ "./src/app/admin/components/add-crop/add-crop.component.ts");
-/* harmony import */ var _admin_components_farmland_registration_farmland_registration_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./admin/components/farmland-registration/farmland-registration.component */ "./src/app/admin/components/farmland-registration/farmland-registration.component.ts");
-/* harmony import */ var _admin_components_farmers_list_farmers_list_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./admin/components/farmers-list/farmers-list.component */ "./src/app/admin/components/farmers-list/farmers-list.component.ts");
+/* harmony import */ var _admin_components_farmald_search_farmald_search_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./admin/components/farmald-search/farmald-search.component */ "./src/app/admin/components/farmald-search/farmald-search.component.ts");
+/* harmony import */ var _admin_components_admin_notification_admin_notification_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./admin/components/admin-notification/admin-notification.component */ "./src/app/admin/components/admin-notification/admin-notification.component.ts");
+/* harmony import */ var _farmer_components_farmer_notification_farmer_notification_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./farmer/components/farmer-notification/farmer-notification.component */ "./src/app/farmer/components/farmer-notification/farmer-notification.component.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./common/guards/auth.guard */ "./src/app/common/guards/auth.guard.ts");
+/* harmony import */ var _common_guards_role_guard_guard__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./common/guards/role-guard.guard */ "./src/app/common/guards/role-guard.guard.ts");
+/* harmony import */ var _common_page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./common/page-not-found/page-not-found.component */ "./src/app/common/page-not-found/page-not-found.component.ts");
+/* harmony import */ var _gust_gust_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./gust/gust.component */ "./src/app/gust/gust.component.ts");
+/* harmony import */ var _gust_components_welcome_welcome_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./gust/components/welcome/welcome.component */ "./src/app/gust/components/welcome/welcome.component.ts");
+/* harmony import */ var _gust_components_farmlands_farmlands_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./gust/components/farmlands/farmlands.component */ "./src/app/gust/components/farmlands/farmlands.component.ts");
+/* harmony import */ var _gust_components_crops_crops_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./gust/components/crops/crops.component */ "./src/app/gust/components/crops/crops.component.ts");
+/* harmony import */ var _gust_components_contact_contact_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./gust/components/contact/contact.component */ "./src/app/gust/components/contact/contact.component.ts");
+/* harmony import */ var _gust_components_aboutUs_aboutus_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./gust/components/aboutUs/aboutus.component */ "./src/app/gust/components/aboutUs/aboutus.component.ts");
+/* harmony import */ var _gust_components_register_register_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./gust/components/register/register.component */ "./src/app/gust/components/register/register.component.ts");
+/* harmony import */ var _gust_components_hiring_policy_hiring_policy_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./gust/components/hiring-policy/hiring-policy.component */ "./src/app/gust/components/hiring-policy/hiring-policy.component.ts");
+/* harmony import */ var _farmer_farmer_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./farmer/farmer.component */ "./src/app/farmer/farmer.component.ts");
+/* harmony import */ var _farmer_components_profile_profile_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./farmer/components/profile/profile.component */ "./src/app/farmer/components/profile/profile.component.ts");
+/* harmony import */ var _farmer_components_home_home_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./farmer/components/home/home.component */ "./src/app/farmer/components/home/home.component.ts");
+/* harmony import */ var _farmer_components_my_farmalnds_my_farmalnds_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./farmer/components/my-farmalnds/my-farmalnds.component */ "./src/app/farmer/components/my-farmalnds/my-farmalnds.component.ts");
+/* harmony import */ var _admin_admin_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./admin/admin.component */ "./src/app/admin/admin.component.ts");
+/* harmony import */ var _admin_components_add_crop_add_crop_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./admin/components/add-crop/add-crop.component */ "./src/app/admin/components/add-crop/add-crop.component.ts");
+/* harmony import */ var _admin_components_farmland_registration_farmland_registration_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./admin/components/farmland-registration/farmland-registration.component */ "./src/app/admin/components/farmland-registration/farmland-registration.component.ts");
+/* harmony import */ var _admin_components_farmers_list_farmers_list_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./admin/components/farmers-list/farmers-list.component */ "./src/app/admin/components/farmers-list/farmers-list.component.ts");
+/* harmony import */ var _admin_components_customer_message_customer_message_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./admin/components/customer-message/customer-message.component */ "./src/app/admin/components/customer-message/customer-message.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -549,73 +713,51 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
 // Defining Route mocdule
 const appRoutes = [
     { path: '', redirectTo: 'gust', pathMatch: 'full' },
-    { path: 'gust', component: _gust_gust_component__WEBPACK_IMPORTED_MODULE_7__["GustComponent"],
+    { path: 'gust', component: _gust_gust_component__WEBPACK_IMPORTED_MODULE_8__["GustComponent"],
         children: [
             { path: '', redirectTo: 'welcome', pathMatch: 'full' },
-            { path: 'welcome', component: _gust_components_welcome_welcome_component__WEBPACK_IMPORTED_MODULE_8__["WelcomeComponent"] },
-            { path: 'farmlands', component: _gust_components_farmlands_farmlands_component__WEBPACK_IMPORTED_MODULE_9__["FarmlandsComponent"] },
-            { path: 'about-us', component: _gust_components_aboutUs_aboutus_component__WEBPACK_IMPORTED_MODULE_12__["AboutusComponent"] },
-            { path: 'contact-us', component: _gust_components_contact_contact_component__WEBPACK_IMPORTED_MODULE_11__["ContactComponent"] },
-            { path: 'crops', component: _gust_components_crops_crops_component__WEBPACK_IMPORTED_MODULE_10__["CropsComponent"] },
-            { path: 'register', component: _gust_components_register_register_component__WEBPACK_IMPORTED_MODULE_13__["RegisterComponent"] },
-            { path: 'term-and-policies', component: _gust_components_hiring_policy_hiring_policy_component__WEBPACK_IMPORTED_MODULE_14__["HiringPolicyComponent"] }
+            { path: 'welcome', component: _gust_components_welcome_welcome_component__WEBPACK_IMPORTED_MODULE_9__["WelcomeComponent"] },
+            { path: 'farmlands', component: _gust_components_farmlands_farmlands_component__WEBPACK_IMPORTED_MODULE_10__["FarmlandsComponent"] },
+            { path: 'about-us', component: _gust_components_aboutUs_aboutus_component__WEBPACK_IMPORTED_MODULE_13__["AboutusComponent"] },
+            { path: 'contact-us', component: _gust_components_contact_contact_component__WEBPACK_IMPORTED_MODULE_12__["ContactComponent"] },
+            { path: 'crops', component: _gust_components_crops_crops_component__WEBPACK_IMPORTED_MODULE_11__["CropsComponent"] },
+            { path: 'register', component: _gust_components_register_register_component__WEBPACK_IMPORTED_MODULE_14__["RegisterComponent"] },
+            { path: 'term-and-policies', component: _gust_components_hiring_policy_hiring_policy_component__WEBPACK_IMPORTED_MODULE_15__["HiringPolicyComponent"] }
         ] },
-    { path: 'farmers', component: _farmer_farmer_component__WEBPACK_IMPORTED_MODULE_15__["FarmerComponent"],
+    { path: 'farmers', component: _farmer_farmer_component__WEBPACK_IMPORTED_MODULE_16__["FarmerComponent"],
         children: [
             { path: '', redirectTo: 'home', pathMatch: 'full' },
-            { path: 'home', component: _farmer_components_home_home_component__WEBPACK_IMPORTED_MODULE_17__["HomeComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_4__["AuthGuard"]] },
-            { path: 'profile', component: _farmer_components_profile_profile_component__WEBPACK_IMPORTED_MODULE_16__["ProfileComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_4__["AuthGuard"]] },
-            { path: 'my-farmlands', component: _farmer_components_my_farmalnds_my_farmalnds_component__WEBPACK_IMPORTED_MODULE_18__["MyFarmalndsComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_4__["AuthGuard"]] },
-            { path: 'farmer-notification', component: _farmer_components_farmer_notification_farmer_notification_component__WEBPACK_IMPORTED_MODULE_1__["FarmerNotificationComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_4__["AuthGuard"]] }
+            { path: 'home', component: _farmer_components_home_home_component__WEBPACK_IMPORTED_MODULE_18__["HomeComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_5__["AuthGuard"]] },
+            { path: 'profile', component: _farmer_components_profile_profile_component__WEBPACK_IMPORTED_MODULE_17__["ProfileComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_5__["AuthGuard"]] },
+            { path: 'my-farmlands', component: _farmer_components_my_farmalnds_my_farmalnds_component__WEBPACK_IMPORTED_MODULE_19__["MyFarmalndsComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_5__["AuthGuard"]] },
+            { path: 'farmer-notification', component: _farmer_components_farmer_notification_farmer_notification_component__WEBPACK_IMPORTED_MODULE_2__["FarmerNotificationComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_5__["AuthGuard"]] }
         ] },
-    { path: 'admin', component: _admin_admin_component__WEBPACK_IMPORTED_MODULE_19__["AdminComponent"],
+    { path: 'admin', component: _admin_admin_component__WEBPACK_IMPORTED_MODULE_20__["AdminComponent"],
         children: [
             { path: '', redirectTo: 'farmer-list', pathMatch: 'full' },
-            { path: 'farmer-list', component: _admin_components_farmers_list_farmers_list_component__WEBPACK_IMPORTED_MODULE_22__["FarmersListComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_4__["AuthGuard"], _common_guards_role_guard_guard__WEBPACK_IMPORTED_MODULE_5__["RoleGuardGuard"]] },
-            { path: 'add-crop', component: _admin_components_add_crop_add_crop_component__WEBPACK_IMPORTED_MODULE_20__["AddCropComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_4__["AuthGuard"], _common_guards_role_guard_guard__WEBPACK_IMPORTED_MODULE_5__["RoleGuardGuard"]] },
-            { path: 'farmland-registration', component: _admin_components_farmland_registration_farmland_registration_component__WEBPACK_IMPORTED_MODULE_21__["FarmlandRegistrationComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_4__["AuthGuard"], _common_guards_role_guard_guard__WEBPACK_IMPORTED_MODULE_5__["RoleGuardGuard"]] },
-            { path: 'admin-notification', component: _admin_components_admin_notification_admin_notification_component__WEBPACK_IMPORTED_MODULE_0__["AdminNotificationComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_4__["AuthGuard"], _common_guards_role_guard_guard__WEBPACK_IMPORTED_MODULE_5__["RoleGuardGuard"]] }
+            { path: 'farmer-list', component: _admin_components_farmers_list_farmers_list_component__WEBPACK_IMPORTED_MODULE_23__["FarmersListComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_5__["AuthGuard"], _common_guards_role_guard_guard__WEBPACK_IMPORTED_MODULE_6__["RoleGuardGuard"]] },
+            { path: 'add-crop', component: _admin_components_add_crop_add_crop_component__WEBPACK_IMPORTED_MODULE_21__["AddCropComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_5__["AuthGuard"], _common_guards_role_guard_guard__WEBPACK_IMPORTED_MODULE_6__["RoleGuardGuard"]] },
+            { path: 'farmland-registration', component: _admin_components_farmland_registration_farmland_registration_component__WEBPACK_IMPORTED_MODULE_22__["FarmlandRegistrationComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_5__["AuthGuard"], _common_guards_role_guard_guard__WEBPACK_IMPORTED_MODULE_6__["RoleGuardGuard"]] },
+            { path: 'admin-notification', component: _admin_components_admin_notification_admin_notification_component__WEBPACK_IMPORTED_MODULE_1__["AdminNotificationComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_5__["AuthGuard"], _common_guards_role_guard_guard__WEBPACK_IMPORTED_MODULE_6__["RoleGuardGuard"]] },
+            { path: 'search-farmland', component: _admin_components_farmald_search_farmald_search_component__WEBPACK_IMPORTED_MODULE_0__["FarmaldSearchComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_5__["AuthGuard"], _common_guards_role_guard_guard__WEBPACK_IMPORTED_MODULE_6__["RoleGuardGuard"]] },
+            { path: 'customer-contact', component: _admin_components_customer_message_customer_message_component__WEBPACK_IMPORTED_MODULE_24__["CustomerMessageComponent"], canActivate: [_common_guards_auth_guard__WEBPACK_IMPORTED_MODULE_5__["AuthGuard"], _common_guards_role_guard_guard__WEBPACK_IMPORTED_MODULE_6__["RoleGuardGuard"]] }
         ] },
-    { path: '404', component: _common_page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_6__["PageNotFoundComponent"] },
+    { path: '404', component: _common_page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_7__["PageNotFoundComponent"] },
     { path: '**', redirectTo: '/404' }
 ];
 let AppRoutingModule = class AppRoutingModule {
 };
 AppRoutingModule = __decorate([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
-        imports: [_angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"].forRoot(appRoutes)],
-        exports: [_angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"]]
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["NgModule"])({
+        imports: [_angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"].forRoot(appRoutes)],
+        exports: [_angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"]]
     })
 ], AppRoutingModule);
 
-/*
-
-export const navigationLinks = [
-  {
-      name: 'Dashboard',
-      routerLink: '/dashboard',
-      roles: ['Admin', 'RegUser'],
-      order: 0,
-      overrideFunction: function() { console.log("override function clicked"); }
-  }
-]
-
-// IN ngOnInit()
-this.router.events
-.subscribe(
-    event => {
-        if (event instanceof NavigationEnd) {
-            this.setUserRoleFromUrl(event.urlAfterRedirects);
-            this.setNavLinksFromUserRole(this.userRole);
-        }
-    }
-);
-
-
-*/
 
 
 /***/ }),
@@ -958,7 +1100,7 @@ module.exports = "nav{\r\n    color: black;\r\n    font-family:Typonine Mono Reg
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-md navbar-dark bg-dark\">\r\n   <!-- <a *ngIf=\"!authService.loggedIn()\" class=\"navbar-brand\" href=\"#\"><img src=\"../../../assets/aaitLogo.png\" style=\"height:100px; margin-left:10em\"></a>-->\r\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarsExampleDefault\" aria-controls=\"navbarsExampleDefault\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n      <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n    <div class=\"collapse navbar-collapse\" id=\"navbarsExampleDefault\">\r\n      <ul class=\"navbar-nav mr-auto\">\r\n        <li *ngIf=\"!authService.loggedIn()\" class=\"nav-item\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a class=\"nav-link\" [routerLink]=\"['/gust']\">Smart Farming <span></span></a>\r\n          </li>\r\n          <li *ngIf=\"authService.loggedIn() && !authService.isAdmin()\" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n              <a class=\"nav-link\" [routerLink]=\"['farmers/home']\">Home </a>\r\n            </li>\r\n            <li *ngIf=\"authService.loggedIn() && !authService.isAdmin()\" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n              <a class=\"nav-link\" [routerLink]=\"['farmers/profile']\">My Profile </a>\r\n            </li>\r\n              <li *ngIf=\"authService.loggedIn() && authService.isAdmin() \" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n                  <a class=\"nav-link\" [routerLink]=\"['admin/admin-notification']\">Notifications</a>\r\n            </li>\r\n\r\n      </ul>\r\n      <ul class=\"navbar-nav ml-auto\">\r\n\r\n                           <!-- Gust navigation Component -->\r\n\r\n            <li *ngIf=\"!authService.loggedIn()\" class=\"nav-item\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n                <a class=\"nav-link\" [routerLink]=\"['gust/about-us']\">About-us <span></span></a>\r\n              </li>\r\n              <li *ngIf=\"!authService.loggedIn()\" class=\"nav-item\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n              <a class=\"nav-link\" [routerLink]=\"['gust/farmlands']\">Farmlands <span></span></a>\r\n            </li>\r\n            <li *ngIf=\"!authService.loggedIn()\" class=\"nav-item\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n                <a class=\"nav-link\" [routerLink]=\"['gust/crops']\">Crops <span></span></a>\r\n              </li>\r\n              <li *ngIf=\"!authService.loggedIn()\" class=\"nav-item\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n                  <a class=\"nav-link\" [routerLink]=\"['gust/contact-us']\">Contact-us <span></span></a>\r\n                </li>\r\n\r\n\r\n                        <!-- Farmer navigation Component && authService.isAdmin() -->\r\n\r\n\r\n\r\n        <li *ngIf=\"authService.loggedIn() && !authService.isAdmin() \" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n            <a class=\"nav-link\" [routerLink]=\"['farmers/farmer-notification']\">Notifications</a>\r\n      </li>\r\n        <li *ngIf=\"authService.loggedIn() && !authService.isAdmin()\" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a class=\"nav-link\" [routerLink]=\"['farmers/my-farmlands']\">My Farmlands</a>\r\n        </li>\r\n        <li *ngIf=\"authService.loggedIn() && !authService.isAdmin()\"  class=\"nav-item\" >\r\n          <a class=\"nav-link\" [routerLink]=\"['/gust/farmlands']\"> Free Lands <span></span></a>\r\n        </li>\r\n        <li *ngIf=\"authService.loggedIn() && !authService.isAdmin()\"  class=\"nav-item\" >\r\n          <a class=\"nav-link\" [routerLink]=\"['/gust/crops']\">  Crops </a>\r\n        </li>\r\n        <li *ngIf=\"authService.loggedIn() && !authService.isAdmin()\" class=\"nav-item\" >\r\n          <a class=\"nav-link\" (click)=\"onClickLogout()\">Logout</a>\r\n        </li>\r\n\r\n\r\n                              <!-- Admin navigation Component       && authService.isAdmin()        -->\r\n\r\n\r\n        <li *ngIf=\"authService.loggedIn() && authService.isAdmin()\" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a class=\"nav-link\" [routerLink]=\"['admin/farmer-list']\">Farmers </a>\r\n        </li>\r\n        <li *ngIf=\"authService.loggedIn() && authService.isAdmin()\" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a class=\"nav-link\" [routerLink]=\"['admin/farmland-registration']\">Add Farmland</a>\r\n          <li *ngIf=\"authService.loggedIn() && authService.isAdmin() \" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n            <a class=\"nav-link\" [routerLink]=\"['admin/add-crop']\">Add Crop</a>\r\n        </li>\r\n        <li *ngIf=\"authService.loggedIn() && authService.isAdmin()\" class=\"nav-item\">\r\n          <a class=\"nav-link\" (click)=\"onClickLogout()\">Logout</a>\r\n        </li>\r\n      </ul>\r\n    </div>\r\n  </nav>\r\n\r\n\r\n\r\n\r\n<!--\r\n  <ul class=\"nav navbar-nav\">\r\n    <li class=\"dropdown\">\r\n        <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"true\"> <span class=\"nav-label\">Services</span> <span class=\"caret\"></span></a>\r\n        <ul class=\"dropdown-menu\">\r\n            <li><a href=\"#\">Service A</a></li>\r\n            <li><a href=\"#\">Service B</a></li>\r\n        </ul>\r\n    </li>\r\n</ul> -->\r\n"
+module.exports = "<nav class=\"navbar navbar-expand-md navbar-dark bg-dark\">\r\n   <!-- <a *ngIf=\"!authService.loggedIn()\" class=\"navbar-brand\" href=\"#\"><img src=\"../../../assets/aaitLogo.png\" style=\"height:100px; margin-left:10em\"></a>-->\r\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarsExampleDefault\" aria-controls=\"navbarsExampleDefault\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n      <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n    <div class=\"collapse navbar-collapse\" id=\"navbarsExampleDefault\">\r\n      <ul class=\"navbar-nav mr-auto\">\r\n        <li *ngIf=\"!authService.loggedIn()\" class=\"nav-item\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a class=\"nav-link\" [routerLink]=\"['/gust']\">Smart Farming <span></span></a>\r\n          </li>\r\n          <li *ngIf=\"authService.loggedIn() && !authService.isAdmin()\" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n              <a class=\"nav-link\" [routerLink]=\"['farmers/home']\">Home </a>\r\n            </li>\r\n            <li *ngIf=\"authService.loggedIn() && !authService.isAdmin()\" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n              <a class=\"nav-link\" [routerLink]=\"['farmers/profile']\">My Profile </a>\r\n            </li>\r\n              <li *ngIf=\"authService.loggedIn() && authService.isAdmin() \" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n                  <a class=\"nav-link\" [routerLink]=\"['admin/customer-contact']\">Customer Messages</a>\r\n            </li>\r\n            <li *ngIf=\"authService.loggedIn() && authService.isAdmin() \" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n                <a class=\"nav-link\" [routerLink]=\"['admin/admin-notification']\">Notifications</a>\r\n          </li>\r\n\r\n      </ul>\r\n      <ul class=\"navbar-nav ml-auto\">\r\n\r\n                           <!-- Gust navigation Component -->\r\n\r\n            <li *ngIf=\"!authService.loggedIn()\" class=\"nav-item\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n                <a class=\"nav-link\" [routerLink]=\"['gust/about-us']\">About-us <span></span></a>\r\n              </li>\r\n              <li *ngIf=\"!authService.loggedIn()\" class=\"nav-item\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n              <a class=\"nav-link\" [routerLink]=\"['gust/farmlands']\">Farmlands <span></span></a>\r\n            </li>\r\n            <li *ngIf=\"!authService.loggedIn()\" class=\"nav-item\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n                <a class=\"nav-link\" [routerLink]=\"['gust/crops']\">Crops <span></span></a>\r\n              </li>\r\n              <li *ngIf=\"!authService.loggedIn()\" class=\"nav-item\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n                  <a class=\"nav-link\" [routerLink]=\"['gust/contact-us']\">Contact-us <span></span></a>\r\n                </li>\r\n\r\n\r\n                        <!-- Farmer navigation Component && authService.isAdmin() -->\r\n\r\n\r\n\r\n        <li *ngIf=\"authService.loggedIn() && !authService.isAdmin() \" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n            <a class=\"nav-link\" [routerLink]=\"['farmers/farmer-notification']\">Notifications</a>\r\n      </li>\r\n        <li *ngIf=\"authService.loggedIn() && !authService.isAdmin()\" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a class=\"nav-link\" [routerLink]=\"['farmers/my-farmlands']\">My Farmlands</a>\r\n        </li>\r\n        <li *ngIf=\"authService.loggedIn() && !authService.isAdmin()\"  class=\"nav-item\" >\r\n          <a class=\"nav-link\" [routerLink]=\"['/gust/farmlands']\"> Free Lands <span></span></a>\r\n        </li>\r\n        <li *ngIf=\"authService.loggedIn() && !authService.isAdmin()\"  class=\"nav-item\" >\r\n          <a class=\"nav-link\" [routerLink]=\"['/gust/crops']\">  Crops </a>\r\n        </li>\r\n        <li *ngIf=\"authService.loggedIn() && !authService.isAdmin()\" class=\"nav-item\" >\r\n          <a class=\"nav-link\" (click)=\"onClickLogout()\">Logout</a>\r\n        </li>\r\n\r\n\r\n                              <!-- Admin navigation Component       && authService.isAdmin()        -->\r\n\r\n\r\n        <li *ngIf=\"authService.loggedIn() && authService.isAdmin()\" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a class=\"nav-link\" [routerLink]=\"['admin/farmer-list']\">Farmers </a>\r\n        </li>\r\n        <li *ngIf=\"authService.loggedIn() && authService.isAdmin() \" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n            <a class=\"nav-link\" [routerLink]=\"['admin/search-farmland']\">Farmlands</a>\r\n      </li>\r\n        <li *ngIf=\"authService.loggedIn() && authService.isAdmin()\" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a class=\"nav-link\" [routerLink]=\"['admin/farmland-registration']\">Add Farmland</a>\r\n          <li *ngIf=\"authService.loggedIn() && authService.isAdmin() \" class=\"nav-item\"  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n            <a class=\"nav-link\" [routerLink]=\"['admin/add-crop']\">Add Crop</a>\r\n        </li>\r\n        <li *ngIf=\"authService.loggedIn() && authService.isAdmin()\" class=\"nav-item\">\r\n          <a class=\"nav-link\" (click)=\"onClickLogout()\">Logout</a>\r\n        </li>\r\n      </ul>\r\n    </div>\r\n  </nav>\r\n\r\n"
 
 /***/ }),
 
@@ -1258,6 +1400,18 @@ let AuthService = class AuthService {
         const headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
         headers.append('Content-Type', 'application/json');
         return this.http.get(`users/user-notification/${username}`, { headers: headers })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(res => res.json()));
+    }
+    getFarmlandByID(farmlandID) {
+        const headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
+        headers.append('content-Type', 'application/json');
+        return this.http.get(`farmlands/admin/${farmlandID}`, { headers: headers })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(res => res.json()));
+    }
+    getCustomerMessages() {
+        const headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
+        headers.append('content-Type', 'application/json');
+        return this.http.get(`contacts`, { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(res => res.json()));
     }
 };
@@ -1588,7 +1742,7 @@ let FarmerNotificationComponent = class FarmerNotificationComponent {
     }
     ngOnInit() {
         const loggedUser = JSON.parse(localStorage.getItem('user'));
-        console.log(loggedUser);
+        console.log(loggedUser.username);
         // this.authService.getUserNotification(loggedUser.username).subscribe(data => {
         //   this.user_notification = data;
         //   console.log(this.user_notification);

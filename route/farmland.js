@@ -121,25 +121,6 @@ Farmland.getUserFarmland(user, (err, myFarmland) => {
 });
 });
 
-// Getting status for a particular users's farnland
-// router.get('/user/status/:id', (req, res ) => {
-//   farmland_id = req.params.id;
-//  Farmland.userFarmlandStatus(farmland_id, (err, farmland_status ) => {
-// if(err) throw err;
-// res.json({status: farmland_status});
-//  });
-// });
-
-// // Getting system feedback
-// router.get('/user/feedback/:id', (req, res ) => {
-//   farmland_id = req.params.id;
-//   Farmland.getSystemFeedback(farmland_id, (err, fb ) => {
-//     if(err) throw err;
-//     res.json({feedback: fb});
-//   });
-// });
-//................ Update farmland's sensor data................
-
 //  get farmland data from embedded system and append it the array
 router.post('/sensor', (req, res) => {
 
@@ -301,6 +282,6 @@ catch(err) {
   console.log(`Some err hapens ${err}`);
 }
 };
-   //setInterval(fetchWeather, 10000);
+   setInterval(fetchWeather, 1800000);
 
 module.exports = router;

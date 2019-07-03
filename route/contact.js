@@ -11,16 +11,12 @@ let newContact = new Contact({
     last_name:  req.body.last_name,
     email:  req.body.email,
     phone: Number(req.body.phone),
-    message: req.body.message,
-
-});
+    message: req.body.message,});
 Contact .saveContact(newContact, (err, contact ) => {
     if(err){
       res.json({success: false, msg:'Failed to contact Us'});
     } else {
-      res.json({success: true, msg:'Thanks for Contacting us'});
-    }
-  });
+      res.json({success: true, msg:'Thanks for Contacting us'});  } });
 });
 // gettin  contacts from clinet
 router.get('/', (req, res) => {
@@ -28,9 +24,8 @@ router.get('/', (req, res) => {
       if (err) throw err
            else {
              res.send(contacts);
-             }
-  })
-  });
+             console.log(contacts);
+             } })});
 
   module.exports = router;
       

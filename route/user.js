@@ -92,8 +92,8 @@ router.get('/admin-notification/:admin', (req, res) => {
   User.find({username:req.params.admin}, {notification:1}, (err, response ) => {
      if(err)  throw err;
      if(!response) throw `No farmland exixts for farrmland id ${farmland}`;
-          // console.log(response);
-      res.json(response);
+          console.log(response[0].notification);
+      res.json(response[0].notification);
  });
 });
 router.get('/user-notification/:username', (req, res) => {
@@ -105,9 +105,6 @@ router.get('/user-notification/:username', (req, res) => {
  });
 });
  
- 
-
-
 // .... Searching User by passport
 router.get('/:passport', (req, res) => {
   const user_id = req.params.passport;

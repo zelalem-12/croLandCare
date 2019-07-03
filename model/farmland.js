@@ -58,7 +58,7 @@ module.exports.addFarmland = (newFarmland, callback) => {
 
 // getting afarmalnds by farmland id
 module.exports.getFarmlandByID = (farmalnd_id, callback) => {
-  Farmland.find({_id: farmalnd_id}, callback);
+  Farmland.find({_id: farmalnd_id}, {_id: 0, physical_address: 1, ownedBy:1, farmland_area:1}, callback);
 };
 
   // update basic farmland information by admin
@@ -75,9 +75,6 @@ module.exports.getAllUnhiredFarmlands = callback => {
   Farmland.find({ownedBy: null}, {farmland_area: 1, farmland_experiance:1,farmland_description:1,
     soil_type:1,physical_address:1, latitude:1,longitude:1 }, callback);
 };
-
-
-
 
 
 // Searching farmalnds by location
