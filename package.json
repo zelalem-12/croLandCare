@@ -21,7 +21,8 @@
     "passport": "*",
     "passport-jwt": "*",
     "request": "^2.88.0",
-    "request-promise": "^4.2.2"
+    "request-promise": "^4.2.2",
+    "serialport": "^7.1.5"
   },
   "keywords": [
     "node",

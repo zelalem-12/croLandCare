@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
       if (err) throw err
            else {
              res.send(contacts);
-             console.log(contacts);
+             // console.log(contacts);
              } })});
 
   module.exports = router;

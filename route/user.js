@@ -92,7 +92,7 @@ router.get('/admin-notification/:admin', (req, res) => {
   User.find({username:req.params.admin}, {notification:1}, (err, response ) => {
      if(err)  throw err;
      if(!response) throw `No farmland exixts for farrmland id ${farmland}`;
-          console.log(response[0].notification);
+          // console.log(response[0].notification);
       res.json(response[0].notification);
  });
 });
@@ -100,7 +100,7 @@ router.get('/user-notification/:username', (req, res) => {
   User.find({username: req.params.username}, {_id:0, notification:1}, (err, response ) => {
      if(err)  throw err;
      if(!response) throw `No farmland exixts for farrmland id ${farmland}`;
-      console.log(response[0].notification);
+      // console.log(response[0].notification);
       res.send(response[0].notification);
  });
 });

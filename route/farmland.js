@@ -230,13 +230,13 @@ Farmland.findByIdAndUpdate(farmland, { $set: { enviromental_weather_avg: environ
      });
   
 }); 
-
+res.send("Okay");
  }) ;
 
-router.get('/get-humidity/:id', (req, res) => {
+router.get('/get-humidity/:id', (req, res) => {;
    Farmland.findById(req.params.id, {enviromental_weather:1}, (err, response ) => {
       if(err)  throw err;
-      if(!response) throw `No farmland exixts for farrmland id ${farmland}`;
+      if(!response) throw `No farmland exixts for farrmland id ${req.params.id}`;
        const last_weather= response.enviromental_weather.length-1
       console.log(response.enviromental_weather[last_weather].humidity);
       res.json(response.enviromental_weather[last_weather].humidity);
@@ -247,7 +247,7 @@ router.get('/get-humidity/:id', (req, res) => {
 
  // updating all farmlnds enviromental weather
 const fetchWeather = () => {
-  try{
+  try{ 
   const apiKey = 'da8124feebc16ba503d23184ba5867a6';
 Farmland.allFarmlands((err, farmlands) => {
   if(!farmlands) throw 'There is no farmland in the database';
@@ -266,7 +266,7 @@ request(url, function(err, response, body) {
 
      const  weather_data = {
       temperature: weather.main.temp,
-      humidity: weather.main.humidity,
+      humidity: parseInt(weather.main.humidity),
       pressure: weather.main.pressure,
       wind_speed: weather.wind.speed,
       description: weather.weather[0].description 
@@ -282,6 +282,6 @@ catch(err) {
   console.log(`Some err hapens ${err}`);
 }
 };
-   setInterval(fetchWeather, 1800000);
+  // setInterval(fetchWeather, 1800000);
 
 module.exports = router;
